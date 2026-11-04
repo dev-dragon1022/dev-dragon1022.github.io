@@ -144,6 +144,8 @@
 
 <link rel="stylesheet" href="/css/style.min.css?v=84edaf60">
 
+<link rel="stylesheet" href="/css/code.min.css?v=cb0da316">
+
 
 <script defer data-cfasync="false" src="/js/preloader.min.js?v=881cdc82"></script>
 
@@ -952,7 +954,7 @@ var _hmt = _hmt || [];
 </svg>
 
             
-            <span aria-label="字数: 595">595</span>
+            <span aria-label="字数: 596">596</span>
             
             
             <span class="select-none text-text-faint" aria-hidden="true">/</span>
@@ -967,7 +969,11 @@ var _hmt = _hmt || [];
     </header>
     
     <div class="prose-shiro">
-        <p>1、hover()初始代码片段 在code过程中，常常用到hover()这个事件，直接套用代码片段，写的是：鼠标悬停内容滑出，鼠标离开内容隐藏的效果。 1 2 3 4 5 6 7 $( &#39;.info-hover&#39; ). hover ( function ( ){ $( this ). next ( &#39;.info-main&#39; ). slideDown ( 300 ); }, function (...</p>
+        <h3 id="1、hover-初始代码片段"><a href="#1、hover-初始代码片段" class="headerlink" title="1、hover()初始代码片段"></a>1、hover()初始代码片段</h3><p>在code过程中，常常用到hover()这个事件，直接套用代码片段，写的是：鼠标悬停内容滑出，鼠标离开内容隐藏的效果。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;.info-hover&#x27;</span>).<span class="title function_">hover</span>(</span><br><span class="line"><span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">next</span>(<span class="string">&#x27;.info-main&#x27;</span>).<span class="title function_">slideDown</span>(<span class="number">300</span>);</span><br><span class="line">&#125;,</span><br><span class="line"><span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">next</span>(<span class="string">&#x27;.info-main&#x27;</span>).<span class="title function_">slideUp</span>(<span class="number">300</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>但是在浏览器中运行后，鼠标快速移入、移出时，会不停的有弹出隐藏弹出隐藏，体验不好。</p>
+<p>浏览器中运行效果：<br><img src="https://cdnimg.liujueyi.cn/picgoimg/20261104145308883.gif" alt=" " decoding="async" loading="lazy"></p>
     </div>
     
     <div class="mt-6 text-center">
@@ -1135,11 +1141,17 @@ var _hmt = _hmt || [];
     
     <script>
         
+        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
+        
         
         (window.__shiro = window.__shiro || {})["pagefindBase"] = "/pagefind/";
         (window.__shiro = window.__shiro || {})["searchCss"] = "/css/search.min.css?v=c845a359";
         
         
+        
+        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
+window.__shiro.i18n["clipboard"] = {"copied":"已复制","copy":"复制代码","failed":"复制失败"};
+        (window.__shiro = window.__shiro || {})["clipboardScript"] = "/js/clipboard.min.js?v=add85817";
         
     </script>
     
@@ -1147,6 +1159,8 @@ var _hmt = _hmt || [];
     <script defer src="/js/runtime.min.js?v=71138c68"></script>
     
     <script defer src="/js/search-bootstrap.min.js?v=e6ff1f0d"></script>
+    
+    <script defer src="/js/clipboard-bootstrap.min.js?v=917b808f"></script>
     
     <script defer src="/js/back-to-top.min.js?v=ff36a748"></script>
     
