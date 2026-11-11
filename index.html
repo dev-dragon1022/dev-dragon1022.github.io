@@ -127,6 +127,11 @@
 
 
 
+<link rel="next" href="https://liujueyi.cn/page/2/" />
+
+
+
+
 
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebSite","name":"決義工記","url":"https://liujueyi.cn","description":"这里是设计师工作日常，我是Just. Liu，这是我的个人网站，欢迎光临"}]</script>
 
@@ -145,8 +150,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Yuji+Syuku&family=Zen+Old+Mincho:wght@400;600&family=Cormorant+Garamond:wght@400;600&family=Noto+Serif+SC:wght@400;600&family=Fira+Code:wght@400;500&display=swap" />
 
 <link rel="stylesheet" href="/css/style.min.css?v=84edaf60">
-
-<link rel="stylesheet" href="/css/code.min.css?v=cb0da316">
 
 
 <script defer data-cfasync="false" src="/js/preloader.min.js?v=881cdc82"></script>
@@ -820,6 +823,203 @@ var _hmt = _hmt || [];
 <article class="py-2">
     <header class="text-center mb-4">
         <h2 class="font-bold leading-snug text-text-heading text-[1.35rem] transition-colors hover:text-seal sm:text-[1.45rem] md:text-[1.6rem]">
+            <a href="/2023/02/17/%E5%85%B3%E4%BA%8Ecss3%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2Media%E7%9A%84%E4%B8%80%E4%BA%9B%E7%94%A8%E6%B3%95%E5%B0%8F%E7%BB%93/">关于css3媒体查询Media的一些用法小结</a>
+        </h2>
+        
+
+
+
+
+
+
+
+
+<div class="mt-2 flex flex-wrap items-center justify-center gap-y-1 text-text-chrome gap-x-3 text-xs sm:gap-x-4 sm:text-sm">
+    <div class="flex items-center gap-1.5">
+        
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+
+        <a href="/archives/2023/" class="oldstyle-nums link-chrome"><time datetime="2023-02-17">2023/02/17</time></a>
+    </div>
+    
+        <span class="select-none text-text-faint" aria-hidden="true">•</span>
+        <div class="flex items-center gap-1.5">
+            
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+</svg>
+
+            
+                
+                
+                
+                <a class="link-chrome" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" title="前端开发">前端开发</a>
+                
+                
+            
+        </div>
+    
+    
+        <span class="select-none text-text-faint" aria-hidden="true">•</span>
+        
+        <div class="flex items-center gap-1.5 oldstyle-nums" title="字数 / 阅读时长">
+            
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+</svg>
+
+            
+            <span aria-label="字数: 585">585</span>
+            
+            
+            <span class="select-none text-text-faint" aria-hidden="true">/</span>
+            
+            
+            <span aria-label="阅读时长: 2 分钟">2 分钟</span>
+            
+        </div>
+    
+</div>
+
+    </header>
+    
+    <div class="prose-shiro">
+        <p>媒体查询是CSS3中的重要特性，针对不同的设备和屏幕尺寸创建不同的样式，使用@media规则编写，定义一组样式在特定条件时才会进行读写渲染。</p>
+<p>最常见的是设置不同的屏幕尺寸，使用min-width和max-width属性进行定义。</p>
+    </div>
+    
+    <div class="mt-6 text-center">
+        <a href="/2023/02/17/%E5%85%B3%E4%BA%8Ecss3%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2Media%E7%9A%84%E4%B8%80%E4%BA%9B%E7%94%A8%E6%B3%95%E5%B0%8F%E7%BB%93/"
+            class="focus-elegant btn-ink"
+            aria-label="阅读更多: 关于css3媒体查询Media的一些用法小结">
+            阅读更多
+        </a>
+    </div>
+    
+</article>
+
+
+        
+            
+<div class="my-8 flex items-center justify-center gap-3" aria-hidden="true">
+    <div class="h-px flex-1 bg-linear-to-r from-transparent to-text-faint max-w-divider"></div>
+    <svg class="h-4 w-10 shrink-0 text-text-faint" viewBox="0 0 40 10">
+        <circle cx="20" cy="5" r="3" fill="currentColor" opacity="0.9" />
+        <circle cx="4" cy="5" r="1.5" fill="currentColor" opacity="0.6" />
+        <circle cx="36" cy="5" r="1.5" fill="currentColor" opacity="0.6" />
+    </svg>
+    <div class="h-px flex-1 bg-linear-to-l from-transparent to-text-faint max-w-divider"></div>
+</div>
+
+        
+    
+        
+        
+        
+<article class="py-2">
+    <header class="text-center mb-4">
+        <h2 class="font-bold leading-snug text-text-heading text-[1.35rem] transition-colors hover:text-seal sm:text-[1.45rem] md:text-[1.6rem]">
+            <a href="/2022/12/05/js%E5%BF%AB%E9%80%9F%E5%88%A4%E6%96%AD%E8%AE%BE%E5%A4%87%E7%BB%88%E7%AB%AF%E6%98%AFios%E8%BF%98%E6%98%AFandroid/">js快速判断设备终端是ios还是android</a>
+        </h2>
+        
+
+
+
+
+
+
+
+
+<div class="mt-2 flex flex-wrap items-center justify-center gap-y-1 text-text-chrome gap-x-3 text-xs sm:gap-x-4 sm:text-sm">
+    <div class="flex items-center gap-1.5">
+        
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+
+        <a href="/archives/2022/" class="oldstyle-nums link-chrome"><time datetime="2022-12-05">2022/12/05</time></a>
+    </div>
+    
+        <span class="select-none text-text-faint" aria-hidden="true">•</span>
+        <div class="flex items-center gap-1.5">
+            
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+</svg>
+
+            
+                
+                
+                
+                <a class="link-chrome" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" title="前端开发">前端开发</a>
+                
+                
+            
+        </div>
+    
+    
+        <span class="select-none text-text-faint" aria-hidden="true">•</span>
+        
+        <div class="flex items-center gap-1.5 oldstyle-nums" title="字数 / 阅读时长">
+            
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+</svg>
+
+            
+            <span aria-label="字数: 306">306</span>
+            
+            
+            <span class="select-none text-text-faint" aria-hidden="true">/</span>
+            
+            
+            <span aria-label="阅读时长: 1 分钟">1 分钟</span>
+            
+        </div>
+    
+</div>
+
+    </header>
+    
+    <div class="prose-shiro">
+        <p>在移动端开发过程中，有些 H5 页面在界面设计时，安卓设备和苹果设备会有一些区别。</p>
+<p>所以我们可以通过 js 来快速判断 H5 页面渲染在哪种移动设备上，然后根据不同的移动设备来分别渲染不同的界面设计效果，来保证设计的效果图的还原度和落地。</p>
+<p>下面一小段代码来快速实现判断，限于移动设备浏览器中渲染的页面。</p>
+    </div>
+    
+    <div class="mt-6 text-center">
+        <a href="/2022/12/05/js%E5%BF%AB%E9%80%9F%E5%88%A4%E6%96%AD%E8%AE%BE%E5%A4%87%E7%BB%88%E7%AB%AF%E6%98%AFios%E8%BF%98%E6%98%AFandroid/"
+            class="focus-elegant btn-ink"
+            aria-label="阅读更多: js快速判断设备终端是ios还是android">
+            阅读更多
+        </a>
+    </div>
+    
+</article>
+
+
+        
+            
+<div class="my-8 flex items-center justify-center gap-3" aria-hidden="true">
+    <div class="h-px flex-1 bg-linear-to-r from-transparent to-text-faint max-w-divider"></div>
+    <svg class="h-4 w-10 shrink-0 text-text-faint" viewBox="0 0 40 10">
+        <circle cx="20" cy="5" r="3" fill="currentColor" opacity="0.9" />
+        <circle cx="4" cy="5" r="1.5" fill="currentColor" opacity="0.6" />
+        <circle cx="36" cy="5" r="1.5" fill="currentColor" opacity="0.6" />
+    </svg>
+    <div class="h-px flex-1 bg-linear-to-l from-transparent to-text-faint max-w-divider"></div>
+</div>
+
+        
+    
+        
+        
+        
+<article class="py-2">
+    <header class="text-center mb-4">
+        <h2 class="font-bold leading-snug text-text-heading text-[1.35rem] transition-colors hover:text-seal sm:text-[1.45rem] md:text-[1.6rem]">
             <a href="/2022/09/03/%E5%85%B3%E4%BA%8E%E8%AE%A9%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84%E5%87%A0%E7%A7%8Dcss%E5%86%99%E6%B3%95/">关于让元素垂直居中的几种css写法</a>
         </h2>
         
@@ -1194,208 +1394,17 @@ var _hmt = _hmt || [];
 
 
         
-            
-<div class="my-8 flex items-center justify-center gap-3" aria-hidden="true">
-    <div class="h-px flex-1 bg-linear-to-r from-transparent to-text-faint max-w-divider"></div>
-    <svg class="h-4 w-10 shrink-0 text-text-faint" viewBox="0 0 40 10">
-        <circle cx="20" cy="5" r="3" fill="currentColor" opacity="0.9" />
-        <circle cx="4" cy="5" r="1.5" fill="currentColor" opacity="0.6" />
-        <circle cx="36" cy="5" r="1.5" fill="currentColor" opacity="0.6" />
-    </svg>
-    <div class="h-px flex-1 bg-linear-to-l from-transparent to-text-faint max-w-divider"></div>
-</div>
-
-        
     
+    
+
+    
+<nav class="pagination mt-8 flex flex-wrap items-center justify-center gap-6 text-sm sm:gap-8 md:mt-10 md:text-base"
+    aria-label="分页导航">
         
         
-        
-<article class="py-2">
-    <header class="text-center mb-4">
-        <h2 class="font-bold leading-snug text-text-heading text-[1.35rem] transition-colors hover:text-seal sm:text-[1.45rem] md:text-[1.6rem]">
-            <a href="/2022/05/28/jquery%E4%B8%AD%E5%85%B3%E4%BA%8Ehover-%E4%BA%8B%E4%BB%B6%E5%88%87%E6%8D%A2%E7%9A%84%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86/">jquery中关于hover()事件切换的延时处理</a>
-        </h2>
-        
+        <span class="page-number current" aria-current="page">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+</nav>
 
-
-
-
-
-
-
-
-<div class="mt-2 flex flex-wrap items-center justify-center gap-y-1 text-text-chrome gap-x-3 text-xs sm:gap-x-4 sm:text-sm">
-    <div class="flex items-center gap-1.5">
-        
-<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-</svg>
-
-        <a href="/archives/2022/" class="oldstyle-nums link-chrome"><time datetime="2022-05-28">2022/05/28</time></a>
-    </div>
-    
-        <span class="select-none text-text-faint" aria-hidden="true">•</span>
-        <div class="flex items-center gap-1.5">
-            
-<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-</svg>
-
-            
-                
-                
-                
-                <a class="link-chrome" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" title="前端开发">前端开发</a>
-                
-                
-            
-        </div>
-    
-    
-        <span class="select-none text-text-faint" aria-hidden="true">•</span>
-        
-        <div class="flex items-center gap-1.5 oldstyle-nums" title="字数 / 阅读时长">
-            
-<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-</svg>
-
-            
-            <span aria-label="字数: 596">596</span>
-            
-            
-            <span class="select-none text-text-faint" aria-hidden="true">/</span>
-            
-            
-            <span aria-label="阅读时长: 2 分钟">2 分钟</span>
-            
-        </div>
-    
-</div>
-
-    </header>
-    
-    <div class="prose-shiro">
-        <h3 id="1、hover-初始代码片段"><a href="#1、hover-初始代码片段" class="headerlink" title="1、hover()初始代码片段"></a>1、hover()初始代码片段</h3><p>在code过程中，常常用到hover()这个事件，直接套用代码片段，写的是：鼠标悬停内容滑出，鼠标离开内容隐藏的效果。</p>
-<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;.info-hover&#x27;</span>).<span class="title function_">hover</span>(</span><br><span class="line"><span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">next</span>(<span class="string">&#x27;.info-main&#x27;</span>).<span class="title function_">slideDown</span>(<span class="number">300</span>);</span><br><span class="line">&#125;,</span><br><span class="line"><span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  $(<span class="variable language_">this</span>).<span class="title function_">next</span>(<span class="string">&#x27;.info-main&#x27;</span>).<span class="title function_">slideUp</span>(<span class="number">300</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>但是在浏览器中运行后，鼠标快速移入、移出时，会不停的有弹出隐藏弹出隐藏，体验不好。</p>
-<p>浏览器中运行效果：<br><img src="https://cdnimg.liujueyi.cn/picgoimg/20261104145308883.gif" alt=" " decoding="async" loading="lazy"></p>
-    </div>
-    
-    <div class="mt-6 text-center">
-        <a href="/2022/05/28/jquery%E4%B8%AD%E5%85%B3%E4%BA%8Ehover-%E4%BA%8B%E4%BB%B6%E5%88%87%E6%8D%A2%E7%9A%84%E5%BB%B6%E6%97%B6%E5%A4%84%E7%90%86/"
-            class="focus-elegant btn-ink"
-            aria-label="阅读更多: jquery中关于hover()事件切换的延时处理">
-            阅读更多
-        </a>
-    </div>
-    
-</article>
-
-
-        
-            
-<div class="my-8 flex items-center justify-center gap-3" aria-hidden="true">
-    <div class="h-px flex-1 bg-linear-to-r from-transparent to-text-faint max-w-divider"></div>
-    <svg class="h-4 w-10 shrink-0 text-text-faint" viewBox="0 0 40 10">
-        <circle cx="20" cy="5" r="3" fill="currentColor" opacity="0.9" />
-        <circle cx="4" cy="5" r="1.5" fill="currentColor" opacity="0.6" />
-        <circle cx="36" cy="5" r="1.5" fill="currentColor" opacity="0.6" />
-    </svg>
-    <div class="h-px flex-1 bg-linear-to-l from-transparent to-text-faint max-w-divider"></div>
-</div>
-
-        
-    
-        
-        
-        
-<article class="py-2">
-    <header class="text-center mb-4">
-        <h2 class="font-bold leading-snug text-text-heading text-[1.35rem] transition-colors hover:text-seal sm:text-[1.45rem] md:text-[1.6rem]">
-            <a href="/2021/06/04/React-ant-Design-ProFrom%E9%AB%98%E7%BA%A7%E8%A1%A8%E5%8D%95-%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%87%A0%E7%A7%8D%E6%A0%BC%E5%BC%8F%E9%AA%8C%E8%AF%81/">[ React+ant Design] ProFrom高级表单 - 基本的几种格式验证</a>
-        </h2>
-        
-
-
-
-
-
-
-
-
-<div class="mt-2 flex flex-wrap items-center justify-center gap-y-1 text-text-chrome gap-x-3 text-xs sm:gap-x-4 sm:text-sm">
-    <div class="flex items-center gap-1.5">
-        
-<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-</svg>
-
-        <a href="/archives/2021/" class="oldstyle-nums link-chrome"><time datetime="2021-06-04">2021/06/04</time></a>
-    </div>
-    
-        <span class="select-none text-text-faint" aria-hidden="true">•</span>
-        <div class="flex items-center gap-1.5">
-            
-<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-</svg>
-
-            
-                
-                
-                
-                <a class="link-chrome" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" title="前端开发">前端开发</a>
-                
-                
-            
-        </div>
-    
-    
-        <span class="select-none text-text-faint" aria-hidden="true">•</span>
-        
-        <div class="flex items-center gap-1.5 oldstyle-nums" title="字数 / 阅读时长">
-            
-<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-</svg>
-
-            
-            <span aria-label="字数: 582">582</span>
-            
-            
-            <span class="select-none text-text-faint" aria-hidden="true">/</span>
-            
-            
-            <span aria-label="阅读时长: 2 分钟">2 分钟</span>
-            
-        </div>
-    
-</div>
-
-    </header>
-    
-    <div class="prose-shiro">
-        <p>antD 中常用的几种表单格式验证，用的 ProFrom 高级表单组件，主要看表单格式验证的部分，同 From 表单大同小异。</p>
-    </div>
-    
-    <div class="mt-6 text-center">
-        <a href="/2021/06/04/React-ant-Design-ProFrom%E9%AB%98%E7%BA%A7%E8%A1%A8%E5%8D%95-%E5%9F%BA%E6%9C%AC%E7%9A%84%E5%87%A0%E7%A7%8D%E6%A0%BC%E5%BC%8F%E9%AA%8C%E8%AF%81/"
-            class="focus-elegant btn-ink"
-            aria-label="阅读更多: [ React+ant Design] ProFrom高级表单 - 基本的几种格式验证">
-            阅读更多
-        </a>
-    </div>
-    
-</article>
-
-
-        
-    
-    
-
-    
 
 
             </main>
@@ -1448,17 +1457,11 @@ var _hmt = _hmt || [];
     
     <script>
         
-        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
-        
         
         (window.__shiro = window.__shiro || {})["pagefindBase"] = "/pagefind/";
         (window.__shiro = window.__shiro || {})["searchCss"] = "/css/search.min.css?v=c845a359";
         
         
-        
-        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
-window.__shiro.i18n["clipboard"] = {"copied":"已复制","copy":"复制代码","failed":"复制失败"};
-        (window.__shiro = window.__shiro || {})["clipboardScript"] = "/js/clipboard.min.js?v=add85817";
         
     </script>
     
@@ -1466,8 +1469,6 @@ window.__shiro.i18n["clipboard"] = {"copied":"已复制","copy":"复制代码","
     <script defer src="/js/runtime.min.js?v=71138c68"></script>
     
     <script defer src="/js/search-bootstrap.min.js?v=e6ff1f0d"></script>
-    
-    <script defer src="/js/clipboard-bootstrap.min.js?v=917b808f"></script>
     
     <script defer src="/js/back-to-top.min.js?v=ff36a748"></script>
     
