@@ -1,0 +1,902 @@
+<!doctype html>
+
+
+
+<html lang="zh-CN" class="h-full scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Hexo " />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    
+
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+
+<link rel="prefetch" as="script" href="https://cdn.jsdelivr.net/npm/lightgallery@2.9.0/lightgallery.min.js" />
+<link rel="prefetch" as="style" href="https://cdn.jsdelivr.net/npm/lightgallery@2.9.0/css/lightgallery.min.css" />
+<link rel="prefetch" as="script" href="/js/lightgallery.min.js?v=855d36c3" />
+
+
+<link rel="prefetch" as="style" href="/css/search.min.css?v=c845a359" />
+
+<link rel="prefetch" as="style" href="/pagefind/pagefind-component-ui.css" />
+<link rel="prefetch" as="script" href="/pagefind/pagefind-component-ui.js" />
+
+
+    
+    
+<script data-cfasync="false">
+;(() => {
+    // Progressive enhancement marker (mobile nav CSS uses html.js before paint).
+    document.documentElement.classList.add('js');
+    const shiro = (window.__shiro = window.__shiro || {});
+    const defaultTheme = "system";
+    shiro.themeDefault = defaultTheme;
+    
+    const states = defaultTheme === 'system' ? ['system', 'light', 'dark'] : ['light', 'dark'];
+    let saved;
+    try { saved = localStorage.getItem('theme'); } catch (_) {}
+    const state = saved && states.includes(saved) ? saved : defaultTheme;
+    const html = document.documentElement;
+    html.setAttribute('data-theme-state', state);
+    const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    // Pagefind dark contract only when search is enabled.
+    const syncPagefindTheme = true;
+    shiro.searchEnabled = syncPagefindTheme;
+    // Single source for theme-toggle.js and system-follow listener.
+    const applyResolvedTheme = (dark) => {
+        html.setAttribute('data-theme', dark ? 'dark' : 'light');
+        if (syncPagefindTheme) {
+            if (dark) html.setAttribute('data-pf-theme', 'dark');
+            else html.removeAttribute('data-pf-theme');
+        }
+        html.style.colorScheme = dark ? 'dark' : 'light';
+    };
+    shiro.applyResolvedTheme = applyResolvedTheme;
+    applyResolvedTheme(state === 'dark' || (state !== 'light' && darkQuery.matches));
+    if (defaultTheme === 'system') {
+        // Follow OS theme while in system mode even if the toggle script is absent.
+        const followSystem = () => {
+            if (html.getAttribute('data-theme-state') !== 'system') return;
+            applyResolvedTheme(darkQuery.matches);
+        };
+        if (darkQuery.addEventListener) darkQuery.addEventListener('change', followSystem);
+        else if (darkQuery.addListener) darkQuery.addListener(followSystem);
+    }
+    // Preloader skip: the session collection must contain this page's font-bundle URL.
+    const fontsReadyToken = "https://fonts.googleapis.com/css2?family=Cardo:wght@400;700\u0026family=Yuji+Syuku\u0026family=Zen+Old+Mincho:wght@400;600\u0026family=Cormorant+Garamond:wght@400;600\u0026family=Noto+Serif+SC:wght@400;600\u0026family=Fira+Code:wght@400;500\u0026display=swap";
+    shiro.fontsReadyToken = fontsReadyToken;
+    try {
+        const storedFontsReady = sessionStorage.getItem('shiro:fonts-ready');
+        const readyFontTokens = storedFontsReady === fontsReadyToken
+            ? [storedFontsReady]
+            : JSON.parse(storedFontsReady || '[]');
+        if (
+            fontsReadyToken
+            && Array.isArray(readyFontTokens)
+            && readyFontTokens.indexOf(fontsReadyToken) !== -1
+        ) {
+            html.classList.add('shiro-preloader-done');
+        }
+    } catch (_) {}
+})();
+</script>
+
+    
+
+    
+
+
+
+
+
+
+
+    
+
+
+<title>一般人我都不告诉他的那些css伪选择器 | 決義工記</title>
+
+
+<meta name="description" content="什么是伪选择器 CSS 中的伪选择器是指用于匹配特定状态或位置的选择器，它们不是基于 HTML 元素的实际属性进行匹配，而是基于元素的状态或上下文进行匹配。" />
+
+
+<meta name="author" content="Just. Liu" />
+
+
+<meta name="keywords" content="html, css, 伪选择器" />
+
+
+<meta property="og:title" content="一般人我都不告诉他的那些css伪选择器 | 決義工記" />
+
+<meta property="og:description" content="什么是伪选择器 CSS 中的伪选择器是指用于匹配特定状态或位置的选择器，它们不是基于 HTML 元素的实际属性进行匹配，而是基于元素的状态或上下文进行匹配。" />
+
+<meta property="og:url" content="https://liujueyi.cn/2023/03/19/20230319/index.html" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="決義工記" />
+
+
+<meta property="og:locale" content="zh_CN" />
+
+
+<meta property="og:image" content="https://cdnimg.liujueyi.cn/picgoimg/ewm.png" />
+
+<meta property="og:image:alt" content="扫码关注" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2023-03-19T07:35:15.000Z" />
+
+
+<meta property="article:modified_time" content="2026-11-14T07:39:14.000Z" />
+
+
+
+<meta property="article:tag" content="html" />
+
+<meta property="article:tag" content="css" />
+
+<meta property="article:tag" content="伪选择器" />
+
+
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="一般人我都不告诉他的那些css伪选择器 | 決義工記" />
+
+<meta name="twitter:description" content="什么是伪选择器 CSS 中的伪选择器是指用于匹配特定状态或位置的选择器，它们不是基于 HTML 元素的实际属性进行匹配，而是基于元素的状态或上下文进行匹配。" />
+
+
+<meta name="twitter:image" content="https://cdnimg.liujueyi.cn/picgoimg/ewm.png" />
+
+<meta name="twitter:image:alt" content="扫码关注" />
+
+
+
+<link rel="canonical" href="https://liujueyi.cn/2023/03/19/20230319/index.html" />
+
+
+
+
+
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"一般人我都不告诉他的那些css伪选择器","mainEntityOfPage":{"@type":"WebPage","@id":"https://liujueyi.cn/2023/03/19/20230319/"},"description":"什么是伪选择器 CSS 中的伪选择器是指用于匹配特定状态或位置的选择器，它们不是基于 HTML 元素的实际属性进行匹配，而是基于元素的状态或上下文进行匹配。","image":["https://cdnimg.liujueyi.cn/picgoimg/ewm.png"],"datePublished":"2023-03-19T07:35:15.000Z","dateModified":"2026-11-14T07:39:14.000Z","author":{"@type":"Person","name":"Just. Liu"},"publisher":{"@type":"Organization","name":"決義工記","logo":{"@type":"ImageObject","url":"https://liujueyi.cn/favicon.svg","width":112,"height":112}},"keywords":"html, css, 伪选择器"}]</script>
+
+
+
+<link rel="icon" href="/favicon.svg" />
+
+
+
+<link rel="alternate" type="application/atom+xml" title="決義工記" href="/atom.xml" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Yuji+Syuku&family=Zen+Old+Mincho:wght@400;600&family=Cormorant+Garamond:wght@400;600&family=Noto+Serif+SC:wght@400;600&family=Fira+Code:wght@400;500&display=swap" />
+
+<link rel="stylesheet" href="/css/style.min.css?v=84edaf60">
+
+<link rel="stylesheet" href="/css/code.min.css?v=cb0da316">
+
+
+<link rel="stylesheet" href="/css/toc.min.css?v=d9987942">
+
+<script defer data-cfasync="false" src="/js/preloader.min.js?v=881cdc82"></script>
+
+</head>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?aed07108ff8651ce13670ba77c3c048c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<body class="h-full fog-bg text-text-body" data-shiro-lightgallery="true">
+    <!-- Preloader: font CSS load + fonts.ready, or preloader.min.js deadline. -->
+    <div id="shiroPreloader" class="shiro-preloader" aria-hidden="true">
+        <div class="shiro-preloader-ripple" aria-hidden="true">
+            <span class="shiro-preloader-ring"></span>
+            <span class="shiro-preloader-ring"></span>
+        </div>
+    </div>
+    <a href="#main-content" class="shiro-skip-link">跳到正文</a>
+    
+    
+<svg width="0" height="0" class="absolute pointer-events-none" aria-hidden="true">
+    <defs>
+        <filter id="seal-roughness" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+        </filter>
+        <filter id="text-erosion">
+            <feTurbulence type="fractalNoise" baseFrequency="0.15" numOctaves="1" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
+        </filter>
+    </defs>
+</svg>
+
+    
+
+    
+    <div id="progressBar" class="progress-bar" aria-hidden="true"></div>
+    
+    
+    <div id="backToTopSentinel" class="back-to-top-sentinel" aria-hidden="true"></div>
+    
+
+    <div class="min-h-full px-4 pt-14 pb-6 md:pb-5">
+
+        <!-- Paper Card -->
+        <div
+            class="paper mx-auto w-full max-w-4xl rounded-xl px-5 sm:px-8 md:px-12 lg:px-14 pt-10 pb-6 md:pt-12 md:pb-8">
+
+            
+
+
+<header data-pagefind-ignore>
+
+    <div class="flex items-start justify-center">
+        <div class="text-center">
+            <div class="relative inline-block">
+                
+                <p class="site-title">
+                    <a href="/">決義工記</a>
+                </p>
+                
+                <!-- Seal: Mathematically Centered -->
+                
+                <div
+                    class="absolute left-full top-1/2 -translate-y-1/2 ml-1 sm:ml-4 origin-left scale-75 sm:scale-110">
+                    
+<svg width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M15,12 Q50,5 85,12 Q95,50 88,88 Q50,95 12,88 Q5,50 15,12 Z"
+        fill="var(--color-seal-fill)" filter="url(#seal-roughness)" opacity="0.92" />
+    <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+        font-size="42" fill="var(--color-on-seal)" filter="url(#text-erosion)"
+        class="seal-text select-none">義</text>
+</svg>
+
+                </div>
+                
+            </div>
+            
+            <p class="site-subtitle">
+                好奇心改變世界
+            </p>
+            
+            
+            
+            <div class="mt-3 sm:mt-4 flex items-center justify-center gap-2">
+                
+                <a class="focus-elegant header-pill-btn"
+                    href="/atom.xml" target="_blank" rel="noopener noreferrer" aria-label="RSS">
+                    
+<svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle>
+</svg>
+
+                </a>
+                
+                
+                
+                <button id="themeToggle" type="button" class="focus-elegant header-pill-btn" aria-label="跟随系统" data-label-system="跟随系统" data-label-light="浅色" data-label-dark="深色" disabled>
+                    
+<svg data-icon="system" class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="1.5"/>
+    <path d="M8 21h8M12 17v4" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+
+                    
+<svg data-icon="light" class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="4" stroke-width="1.5"/>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+
+                    
+<svg data-icon="dark" class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+                </button>
+                
+                
+                
+                <button id="searchToggle" type="button" class="focus-elegant header-pill-btn" aria-haspopup="dialog" aria-expanded="false" aria-label="搜索" disabled>
+                    
+<svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="M21 21l-4.35-4.35"></path>
+</svg>
+
+                </button>
+                
+            </div>
+            
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+
+<nav class="mt-8 md:mt-10" aria-label="菜单" data-pagefind-ignore>
+    <!-- Mobile Toggle -->
+    <div class="flex items-center justify-center md:hidden">
+        
+        <button id="menuBtn" type="button"
+            class="focus-elegant inline-flex cursor-pointer items-center gap-2 rounded-full border border-border-strong bg-paper/95 px-4 py-2 text-sm text-text-body shadow-xs"
+            aria-expanded="false" aria-controls="mobileMenu" disabled>
+            <span class="text-base leading-none tracking-widest">菜单</span>
+            
+<svg class="size-4 text-text-chrome transition-transform duration-200" id="menuChevron"
+    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z"
+        clip-rule="evenodd" />
+</svg>
+
+        </button>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:block">
+        <ul class="nav-desktop flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-base text-text-body px-4">
+            
+            <li>
+
+
+<a class="nav-desktop-link focus-elegant rounded-md px-2 py-1 hover:text-seal transition-colors"
+    href="/">首页</a>
+</li>
+            
+            <li class="text-text-subtle select-none" role="separator" aria-hidden="true">/</li>
+            
+            
+            <li>
+
+
+<a class="nav-desktop-link focus-elegant rounded-md px-2 py-1 hover:text-seal transition-colors"
+    href="/archives">归档</a>
+</li>
+            
+            <li class="text-text-subtle select-none" role="separator" aria-hidden="true">/</li>
+            
+            
+            <li>
+
+
+<a class="nav-desktop-link focus-elegant rounded-md px-2 py-1 hover:text-seal transition-colors"
+    href="/categories">分类</a>
+</li>
+            
+            <li class="text-text-subtle select-none" role="separator" aria-hidden="true">/</li>
+            
+            
+            <li>
+
+
+<a class="nav-desktop-link focus-elegant rounded-md px-2 py-1 hover:text-seal transition-colors"
+    href="/tags">标签</a>
+</li>
+            
+            
+        </ul>
+    </div>
+
+    <!-- Mobile Menu Panel: open without JS; html.js collapses before paint until toggled. -->
+    <div id="mobileMenu" class="menu-panel md:hidden mt-4" data-open="false">
+        <ul
+            class="mx-auto max-w-sm max-h-menu overflow-y-auto rounded-2xl border border-border-strong bg-paper/95 shadow-xs">
+            
+            <li>
+
+
+<a class="focus-elegant block px-6 py-3 text-center text-text-body hover:text-seal hover:bg-seal/5 transition-colors"
+    href="/">首页</a>
+</li>
+            
+            <li class="h-px bg-border-decorative" role="separator" aria-hidden="true"></li>
+            
+            
+            <li>
+
+
+<a class="focus-elegant block px-6 py-3 text-center text-text-body hover:text-seal hover:bg-seal/5 transition-colors"
+    href="/archives">归档</a>
+</li>
+            
+            <li class="h-px bg-border-decorative" role="separator" aria-hidden="true"></li>
+            
+            
+            <li>
+
+
+<a class="focus-elegant block px-6 py-3 text-center text-text-body hover:text-seal hover:bg-seal/5 transition-colors"
+    href="/categories">分类</a>
+</li>
+            
+            <li class="h-px bg-border-decorative" role="separator" aria-hidden="true"></li>
+            
+            
+            <li>
+
+
+<a class="focus-elegant block px-6 py-3 text-center text-text-body hover:text-seal hover:bg-seal/5 transition-colors"
+    href="/tags">标签</a>
+</li>
+            
+            
+        </ul>
+    </div>
+    
+    <script data-cfasync="false">
+    if (document.documentElement.classList.contains('js')) {
+        var menuPanel = document.getElementById('mobileMenu');
+        if (menuPanel) menuPanel.inert = true;
+    }
+    </script>
+</nav>
+
+
+
+            <!-- Main Content -->
+            <main id="main-content" class="section-divider" tabindex="-1">
+                
+
+
+
+
+
+
+
+
+<article class="py-2">
+    <header class="text-center mb-8">
+        
+        <h1 class="page-title mb-4" data-pagefind-body data-pagefind-meta="title">
+            一般人我都不告诉他的那些css伪选择器
+        </h1>
+        
+        
+
+
+
+
+
+
+
+
+<div class="mb-4 flex flex-wrap items-center justify-center gap-y-1 text-text-chrome gap-x-3 text-xs sm:gap-x-4 sm:text-sm">
+    <div class="flex items-center gap-1.5">
+        
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+
+        <a href="/archives/2023/" class="oldstyle-nums link-chrome"><time datetime="2023-03-19">2023/03/19</time></a>
+    </div>
+    
+        <span class="select-none text-text-faint" aria-hidden="true">•</span>
+        <div class="flex items-center gap-1.5">
+            
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+</svg>
+
+            
+                
+                
+                <span class="flex flex-wrap items-center gap-x-1.5 gap-y-0.5" role="list">
+                    
+                    <span class="inline-flex items-center gap-1.5" role="listitem">
+                        
+                        
+                        <a class="link-chrome" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" title="前端开发">前端开发</a>
+                        
+                        
+                    </span>
+                    
+                </span>
+            
+        </div>
+    
+    
+        <span class="select-none text-text-faint" aria-hidden="true">•</span>
+        
+        <div class="flex items-center gap-1.5 oldstyle-nums" title="字数 / 阅读时长">
+            
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+</svg>
+
+            
+            <span aria-label="字数: 1.9k">1.9k</span>
+            
+            
+            <span class="select-none text-text-faint" aria-hidden="true">/</span>
+            
+            
+            <span aria-label="阅读时长: 7 分钟">7 分钟</span>
+            
+        </div>
+    
+</div>
+
+        
+    </header>
+
+    
+    
+<!-- Inline TOC (viewports below the `toc` breakpoint, where the fixed sidebar cannot fit beside the paper card).
+     html.js collapses the body before paint; toggle is disabled until toc.js binds. No-JS keeps body open. -->
+<nav id="tocInline" class="toc-inline toc:hidden mb-8" aria-label="目录" data-pagefind-ignore>
+    <button type="button" class="toc-toggle" aria-expanded="false" aria-controls="tocInlineBody" disabled>
+        <span class="toc-toggle-title">目录</span>
+        
+<svg class="toc-chevron size-4 text-text-chrome transition-transform duration-200"
+    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z"
+        clip-rule="evenodd" />
+</svg>
+
+    </button>
+    <div class="toc-body" id="tocInlineBody" data-open="false"><ul class="toc-list"><li class="toc-item" data-level="0"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="什么是伪选择器">什么是伪选择器</a></li><li class="toc-item" data-level="0"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="常用的伪选择器">常用的伪选择器</a><ul class="toc-list toc-list-nested"><li class="toc-item" data-level="1"><a class="toc-link" href="#hover-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="hover-伪选择器">:hover 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#active-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="active-伪选择器">:active 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#visited-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="visited-伪选择器">:visited 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#focus-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="focus-伪选择器">:focus 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#first-child-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="first-child-伪选择器">:first-child 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#nth-child-n-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="nth-child-n-伪选择器">:nth-child(n) 伪选择器</a></li></ul></li><li class="toc-item" data-level="0"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E4%BA%BA%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="一般人不知道的一些伪选择器">一般人不知道的一些伪选择器</a><ul class="toc-list toc-list-nested"><li class="toc-item" data-level="1"><a class="toc-link" href="#first-of-type-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="first-of-type-伪选择器">:first-of-type 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#last-of-type-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="last-of-type-伪选择器">:last-of-type 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#only-of-type-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="only-of-type-伪选择器">:only-of-type 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#nth-of-type-n-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="nth-of-type-n-伪选择器">:nth-of-type(n) 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#checked-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="checked-伪选择器">:checked 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#not-selector-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="not-selector-伪选择器">:not(selector) 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#empty-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="empty-伪选择器">:empty 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#focus-within-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="focus-within-伪选择器">:focus-within 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#lang-language-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="lang-language-伪选择器">:lang(language) 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#first-line-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="first-line-伪选择器">::first-line 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#first-letter-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="first-letter-伪选择器">::first-letter 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#selection-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="selection-伪选择器">::selection 伪选择器</a></li></ul></li></ul></div>
+    
+    <script data-cfasync="false">
+    if (document.documentElement.classList.contains('js')) {
+        var tocBody = document.getElementById('tocInlineBody');
+        if (tocBody) tocBody.inert = true;
+    }
+    </script>
+</nav>
+
+<!-- Sidebar TOC (`toc` breakpoint and up; see --breakpoint-toc in source/css/_core/tokens.css) -->
+<nav id="tocSidebar" class="toc-sidebar hidden toc:block" aria-label="目录" data-pagefind-ignore>
+    <div class="toc-sidebar-inner">
+        <p class="toc-sidebar-title">目录</p>
+        <div class="toc-body"><ul class="toc-list"><li class="toc-item" data-level="0"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="什么是伪选择器">什么是伪选择器</a></li><li class="toc-item" data-level="0"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="常用的伪选择器">常用的伪选择器</a><ul class="toc-list toc-list-nested"><li class="toc-item" data-level="1"><a class="toc-link" href="#hover-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="hover-伪选择器">:hover 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#active-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="active-伪选择器">:active 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#visited-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="visited-伪选择器">:visited 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#focus-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="focus-伪选择器">:focus 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#first-child-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="first-child-伪选择器">:first-child 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#nth-child-n-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="nth-child-n-伪选择器">:nth-child(n) 伪选择器</a></li></ul></li><li class="toc-item" data-level="0"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E4%BA%BA%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="一般人不知道的一些伪选择器">一般人不知道的一些伪选择器</a><ul class="toc-list toc-list-nested"><li class="toc-item" data-level="1"><a class="toc-link" href="#first-of-type-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="first-of-type-伪选择器">:first-of-type 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#last-of-type-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="last-of-type-伪选择器">:last-of-type 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#only-of-type-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="only-of-type-伪选择器">:only-of-type 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#nth-of-type-n-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="nth-of-type-n-伪选择器">:nth-of-type(n) 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#checked-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="checked-伪选择器">:checked 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#not-selector-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="not-selector-伪选择器">:not(selector) 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#empty-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="empty-伪选择器">:empty 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#focus-within-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="focus-within-伪选择器">:focus-within 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#lang-language-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="lang-language-伪选择器">:lang(language) 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#first-line-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="first-line-伪选择器">::first-line 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#first-letter-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="first-letter-伪选择器">::first-letter 伪选择器</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#selection-%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8" data-target="selection-伪选择器">::selection 伪选择器</a></li></ul></li></ul></div>
+    </div>
+</nav>
+
+    
+
+    <div class="prose-shiro" data-pagefind-body>
+        <h2 id="什么是伪选择器"><a href="#什么是伪选择器" class="headerlink" title="什么是伪选择器"></a>什么是伪选择器</h2><p>CSS 中的伪选择器是指用于匹配特定状态或位置的选择器，它们不是基于 HTML 元素的实际属性进行匹配，而是基于元素的状态或上下文进行匹配。</p>
+<span id="more"></span>
+
+<h2 id="常用的伪选择器"><a href="#常用的伪选择器" class="headerlink" title="常用的伪选择器"></a>常用的伪选择器</h2><p>前端人员在开发中一般常常用到的伪选择器有以下几种：</p>
+<h3 id="hover-伪选择器"><a href="#hover-伪选择器" class="headerlink" title=":hover 伪选择器"></a>:hover 伪选择器</h3><p><code>:hover</code> 伪选择器用于匹配鼠标悬停在元素上时的状态，可以为元素添加悬停效果。</p>
+<blockquote>
+<p>当鼠标悬停在 a 链接元素文本上时，字体颜色会变成红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="active-伪选择器"><a href="#active-伪选择器" class="headerlink" title=":active 伪选择器"></a>:active 伪选择器</h3><p><code>:active</code> 伪选择器用于匹配元素被点击时的状态，可以为元素添加点击效果。</p>
+<blockquote>
+<p>当 button 按钮被点击时，button 背景会变成红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">button</span><span class="selector-pseudo">:active</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="visited-伪选择器"><a href="#visited-伪选择器" class="headerlink" title=":visited 伪选择器"></a>:visited 伪选择器</h3><p><code>:visited</code> 伪选择器用于匹配已经被访问过的链接，可以为这些链接添加不同的样式，以便用户区分出已经访问过的链接和未访问过的链接。</p>
+<blockquote>
+<p>当某个 a 链接元素被点击访问后，字体颜色会变成红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="focus-伪选择器"><a href="#focus-伪选择器" class="headerlink" title=":focus 伪选择器"></a>:focus 伪选择器</h3><p><code>:focus</code> 伪选择器用于匹配获得焦点的元素，可以为元素添加输入焦点效果。</p>
+<blockquote>
+<p>当鼠标点击输入框获取输入框焦点，输入框会增加 2px 的红色边框。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-pseudo">:focus</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="first-child-伪选择器"><a href="#first-child-伪选择器" class="headerlink" title=":first-child 伪选择器"></a>:first-child 伪选择器</h3><p><code>:first-child</code> 伪选择器用于匹配第一个子元素，可以为元素的第一个子元素添加样式。</p>
+<blockquote>
+<p>当有多个 li 元素时，第一个 li 元素中的文本会变成红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="nth-child-n-伪选择器"><a href="#nth-child-n-伪选择器" class="headerlink" title=":nth-child(n) 伪选择器"></a>:nth-child(n) 伪选择器</h3><p><code>:nth-child(n)</code> 伪选择器用于匹配某个父元素的第 n 个子元素，可以为特定位置的子元素添加样式。</p>
+<blockquote>
+<p>当 ul 元素内，有多个 li 子元素，让 ul 元素内的第 2 个 li 元素的背景色为红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span> <span class="selector-tag">li</span><span class="selector-pseudo">:nth-child</span>(<span class="number">2</span>) &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="一般人不知道的一些伪选择器"><a href="#一般人不知道的一些伪选择器" class="headerlink" title="一般人不知道的一些伪选择器"></a>一般人不知道的一些伪选择器</h2><p>其实除了上面这些伪选择器外，还有一些其他的伪选择器，它们可以为网页提供更加丰富的样式和交互效果。</p>
+<p>下面我们看看还有那些好用的标准伪选择器。</p>
+<h3 id="first-of-type-伪选择器"><a href="#first-of-type-伪选择器" class="headerlink" title=":first-of-type 伪选择器"></a>:first-of-type 伪选择器</h3><p><code>:first-of-type</code> 伪选择器用于匹配某个父元素中，同类型的第一个子元素，可以为某种类型的元素的第一个子元素添加样式。</p>
+<blockquote>
+<p>div 标签中有多个 p 子元素，指定第一个 p 元素内的字体颜色为红色。 </p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">p</span><span class="selector-pseudo">:first-of-type</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="last-of-type-伪选择器"><a href="#last-of-type-伪选择器" class="headerlink" title=":last-of-type 伪选择器"></a>:last-of-type 伪选择器</h3><p><code>:last-of-type</code> 伪选择器用于匹配某个父元素中，同类型的最后一个子元素，可以为某种类型的元素的最后一个子元素添加样式。</p>
+<blockquote>
+<p>div 元素中有多个 p 子元素，指定最后一个 p 元素内的字体颜色为红色。 </p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">p</span><span class="selector-pseudo">:first-of-type</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="only-of-type-伪选择器"><a href="#only-of-type-伪选择器" class="headerlink" title=":only-of-type 伪选择器"></a>:only-of-type 伪选择器</h3><p><code>:only-of-type</code> 伪选择器用于匹配某个父元素中，同类型的唯一一个子元素，可以为某种类型的元素的唯一一个子元素添加样式。</p>
+<blockquote>
+<p>div 元素内有多个子元素，指定唯一没有任何兄弟元素的 p 标签内字体颜色为红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">p</span><span class="selector-pseudo">:only-of-type</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="nth-of-type-n-伪选择器"><a href="#nth-of-type-n-伪选择器" class="headerlink" title=":nth-of-type(n) 伪选择器"></a>:nth-of-type(n) 伪选择器</h3><p><code>:nth-of-type(n)</code> 伪选择器用于匹配某个父元素中，同类型的第 n 个子元素，可以为特定位置的同类型元素添加样式。</p>
+<blockquote>
+<p>div 内有多个不同的子元素，指定多个 p 元素中的第 3 个 p 元素背景色为红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">p</span><span class="selector-pseudo">:nth-of-type</span>(<span class="number">3</span>) &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="checked-伪选择器"><a href="#checked-伪选择器" class="headerlink" title=":checked 伪选择器"></a>:checked 伪选择器</h3><p><code>:checked</code> 伪选择器用于匹配被选中的表单元素，例如 checkbox、radio 和 select 元素。<br>可以为被选中的表单元素添加样式。</p>
+<blockquote>
+<p>多选框被选中时，边框颜色为红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">input</span><span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span><span class="selector-pseudo">:checked</span> &#123;</span><br><span class="line">  <span class="attribute">border-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="not-selector-伪选择器"><a href="#not-selector-伪选择器" class="headerlink" title=":not(selector) 伪选择器"></a>:not(selector) 伪选择器</h3><p><code>:not(selector)</code> 伪选择器用于匹配不符合给定选择器的元素，可以用于选中除某个元素以外的所有元素。<br>而且它还可以是个运算符，可以多条件筛选。</p>
+<blockquote>
+<p>div 元素内，非第一个子元素 p 的字体颜色为红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">p</span><span class="selector-pseudo">:not</span>(<span class="selector-pseudo">:first-child</span>) &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>div 元素内，非 p 元素的字体颜色为红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:not</span>(<span class="selector-tag">p</span>) &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>div 元素内，非第一个子元素 p ,非最后一个子元素 p 的字体颜色为红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> <span class="selector-tag">p</span><span class="selector-pseudo">:not</span>(<span class="selector-pseudo">:first-child</span>)<span class="selector-pseudo">:not</span>(<span class="selector-pseudo">:last-child</span>) &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="empty-伪选择器"><a href="#empty-伪选择器" class="headerlink" title=":empty 伪选择器"></a>:empty 伪选择器</h3><p><code>:empty</code> 伪选择器用于匹配没有子元素的元素，可以为没有内容的元素添加样式。</p>
+<blockquote>
+<p>当 p 元素内，没有回车、空格或任何内容时，边框为 1px 的红色实线边框。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:empty</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="focus-within-伪选择器"><a href="#focus-within-伪选择器" class="headerlink" title=":focus-within 伪选择器"></a>:focus-within 伪选择器</h3><p><code>:focus-within</code> 伪选择器用于匹配包含有 focus 的元素，包括自身和后代元素。可以为包含有 focus 元素的父元素添加样式。</p>
+<blockquote>
+<p>当 div 元素内有 focus 元素选中时，整个div背景色变为红色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">:focus-within</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>:red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="lang-language-伪选择器"><a href="#lang-language-伪选择器" class="headerlink" title=":lang(language) 伪选择器"></a>:lang(language) 伪选择器</h3><p><code>:lang(language)</code> 伪选择器用于匹配指定语言的元素，可以为不同语言的元素添加不同的样式。</p>
+<blockquote>
+<p>指定中文字为微软雅黑。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:lang</span>(zh) &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&quot;Microsoft YaHei&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="first-line-伪选择器"><a href="#first-line-伪选择器" class="headerlink" title="::first-line 伪选择器"></a>::first-line 伪选择器</h3><p><code>::first-line</code> 用于选择元素的第一行或第一段文本。<br>它可以用于选择大多数块级元素和某些行内元素的第一行文本。</p>
+<blockquote>
+<p>p 元素内第一行文本颜色为红色，字重为900.</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::first-line</span> &#123;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">900</span>;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要注意，<code>::first-line</code> 伪选择器不能选择多个元素的第一行文本，它只适用于单个元素。</p>
+<p>此外，<code>::first-line</code> 伪选择器只能用于设置与文本相关的样式属性，例如字体大小、字体颜色、字体样式等。</p>
+<p>而像宽度、高度、背景颜色等样式属性，不能用于 <code>::first-line</code> 伪选择器。</p>
+<h3 id="first-letter-伪选择器"><a href="#first-letter-伪选择器" class="headerlink" title="::first-letter 伪选择器"></a>::first-letter 伪选择器</h3><p><code>::first-letter</code> 伪选择器可以用于大多数块级元素和一些行内元素，如段落、标题等。</p>
+<blockquote>
+<p>p 元素的第一个文本或字母的字号为 16px，字重为 900。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::first-letter</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">900</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>::first-letter</code> 伪选择器只能用于设置与文本相关的样式属性，例如字体大小、字体颜色、字体样式等。<br>而像其他样式属性，例如宽度、高度、背景颜色等，不能用于 <code>::first-letter</code> 伪选择器。</p>
+<h3 id="selection-伪选择器"><a href="#selection-伪选择器" class="headerlink" title="::selection 伪选择器"></a>::selection 伪选择器</h3><p><code>::selection</code> 伪选择器，用于选择用户选择的文本部分。</p>
+<blockquote>
+<p>将为选中的文本部分设置黄色的背景和红色的字体颜色。</p>
+</blockquote>
+<figure class="not-prose highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">::selection</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: yellow;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>::selection</code> 伪选择器只能应用于一些文本相关的样式属性，例如背景颜色、字体颜色等。<br>其他样式属性，例如边框、宽度等不能用于 <code>::selection</code> 伪选择器。</p>
+<hr>
+<p>以上这些标准性伪选择器可以为前端开发人员提供更加灵活的选择器，帮助开发者实现更加复杂的页面样式效果。</p>
+<p>希望这篇文章能帮助到大家更加了解css中的一些伪选择器，提高大家在实际开发中的效率，才能更好的去摸鱼。</p>
+<hr>
+<p align="center">
+<img src="https://cdnimg.liujueyi.cn/picgoimg/ewm.png" alt="扫码关注" width="100%" decoding="async" loading="eager">
+</p>
+    </div>
+
+    <!-- Tags -->
+    
+    <div class="mt-8 flex flex-wrap gap-2">
+        
+        
+<a href="/tags/html/" class="tag-pill">
+    <svg class="size-3 text-text-subtle mr-2 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+        <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+    </svg>
+    html
+    
+</a>
+
+        
+        
+<a href="/tags/css/" class="tag-pill">
+    <svg class="size-3 text-text-subtle mr-2 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+        <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+    </svg>
+    css
+    
+</a>
+
+        
+        
+<a href="/tags/%E4%BC%AA%E9%80%89%E6%8B%A9%E5%99%A8/" class="tag-pill">
+    <svg class="size-3 text-text-subtle mr-2 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+        <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+    </svg>
+    伪选择器
+    
+</a>
+
+        
+    </div>
+    
+
+    
+    <!-- Post Navigation: Hexo's page.prev = newer post, page.next = older post -->
+    <nav class="section-divider flex justify-between items-center text-sm md:text-base" aria-label="文章导航">
+        
+        <a href="/2026/09/07/Hello-Hexo/" class="post-nav-link group text-left" title="Hello Hexo" aria-label="下一篇（更新）: Hello Hexo">
+             <span aria-hidden="true">&larr;</span>
+             <span class="post-nav-title">Hello Hexo</span>
+        </a>
+        
+
+        
+        <a href="/2023/03/16/20230316/" class="post-nav-link group text-right" title="Axios在vue项目中的安装使用以及基本的请求方法" aria-label="上一篇（更旧）: Axios在vue项目中的安装使用以及基本的请求方法">
+            <span class="post-nav-title">Axios在vue项目中的安装使用以及基本的请求方法</span>
+            <span aria-hidden="true">&rarr;</span>
+        </a>
+        
+    </nav>
+
+
+    
+    
+    
+
+
+<div id="giscus-container" class="giscus" data-pagefind-ignore></div>
+
+
+    
+</article>
+
+
+            </main>
+
+            <footer class="section-divider site-footer" data-pagefind-ignore>
+    <div class="site-footer-meta text-center text-sm text-text-chrome leading-relaxed">
+        <p>&copy; <span class="oldstyle-nums">2019–2026</span> 決義工記&nbsp;&nbsp;</p>
+        <p class="font-eng text-footnote tracking-wide opacity-90">春风若有怜花意，可否许我再少年。</p>
+    </div>
+</footer>
+
+        </div>
+
+        <!-- Note Text — decorative aside, not part of main content or footer -->
+        <aside class="mt-4 text-center" aria-hidden="true" role="presentation">
+            <p class="site-note font-title text-xs sm:text-sm text-text-subtle/70 tracking-note select-none" lang="ja">
+                保持你的好奇心💖
+            </p>
+        </aside>
+    </div>
+
+    
+    <button id="backToTop" type="button" class="back-to-top" data-visible="false" aria-label="回到顶部" hidden>
+        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+    
+    
+    
+    <div class="shiro-search-components" data-pagefind-ignore>
+        <pagefind-config bundle-path="/pagefind/" base-url="/"></pagefind-config>
+        <pagefind-modal reset-on-close>
+            <pagefind-modal-header>
+                <pagefind-input placeholder="搜索文章…"></pagefind-input>
+            </pagefind-modal-header>
+            <pagefind-modal-body>
+                <pagefind-summary></pagefind-summary>
+                <pagefind-results></pagefind-results>
+            </pagefind-modal-body>
+            <pagefind-modal-footer>
+                <pagefind-keyboard-hints></pagefind-keyboard-hints>
+            </pagefind-modal-footer>
+        </pagefind-modal>
+    </div>
+    
+
+    <!-- Scripts -->
+    
+    
+    <script>
+        
+        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
+        
+        
+        (window.__shiro = window.__shiro || {})["pagefindBase"] = "/pagefind/";
+        (window.__shiro = window.__shiro || {})["searchCss"] = "/css/search.min.css?v=c845a359";
+        
+        
+        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
+window.__shiro.i18n["gallery"] = {"view_image":"查看图片","visit_source":"查看原始链接"};
+        (window.__shiro = window.__shiro || {})["lightgallery"] = {"css":"https://cdn.jsdelivr.net/npm/lightgallery@2.9.0/css/lightgallery.min.css","js":"https://cdn.jsdelivr.net/npm/lightgallery@2.9.0/lightgallery.min.js","themeCss":"/css/lightgallery.min.css?v=6d7f41e6","cssIntegrity":"","jsIntegrity":"","script":"/js/lightgallery.min.js?v=855d36c3"};
+        
+        
+        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
+window.__shiro.i18n["clipboard"] = {"copied":"已复制","copy":"复制代码","failed":"复制失败"};
+        (window.__shiro = window.__shiro || {})["clipboardScript"] = "/js/clipboard.min.js?v=add85817";
+        
+    </script>
+    
+    
+    <script defer src="/js/runtime.min.js?v=71138c68"></script>
+    
+    <script defer src="/js/search-bootstrap.min.js?v=e6ff1f0d"></script>
+    
+    <script defer src="/js/lightgallery-bootstrap.min.js?v=4cae0954"></script>
+    
+    <script defer src="/js/clipboard-bootstrap.min.js?v=917b808f"></script>
+    
+    <script defer src="/js/toc.min.js?v=3e0cca47"></script>
+    
+    <script defer src="/js/progress.min.js?v=d01e3a23"></script>
+    
+    <script defer src="/js/back-to-top.min.js?v=ff36a748"></script>
+    
+    <script defer src="/js/theme-toggle.min.js?v=04b6578e"></script>
+    
+    <script defer src="/js/mobile-menu.min.js?v=40df95a6"></script>
+    
+    
+    
+
+
+
+
+<script>
+    window.__shiro = window.__shiro || {};
+    window.__shiro.commentsCss = "/css/comments.min.css?v=d42495b4";
+</script>
+<script defer src="/js/comments-bootstrap.min.js?v=2ddad4c0"></script>
+
+<script>
+    (window.__shiro = window.__shiro || {})["commentsConfig"] = {"provider":"giscus","disqusReady":false,"giscusReady":true,"disqus":{"shortname":"","pageUrl":"https://liujueyi.cn/2023/03/19/20230319/","pageIdentifier":"2023/03/19/20230319/"},"giscus":{"src":"https://giscus.app/client.js","repo":"dev-dragon1022/dev-dragon1022.github.io","repo_id":"R_kgDOUQvMdA","category":"Announcements","category_id":"DIC_kwDOUQvMdM4DFCxo","mapping":"pathname","term":"","strict":"0","reactions_enabled":"1","emit_metadata":"0","input_position":"top","theme":"https://cdn.jsdelivr.net/npm/hexo-theme-shiro@1.6.1/source/css/giscus.min.css","lang":"zh-CN","lazy_loading":true}};
+</script>
+
+
+<noscript>请启用 JavaScript 以查看评论。</noscript>
+
+<script defer src="/js/comments-giscus.min.js?v=2fc8959b"></script>
+
+
+
+    
+
+    
+  <!-- Google tag (gtag.js) — SRI omitted because Google updates this script frequently,
+       which would break integrity checks. Use CSP script-src (and optional security.csp_nonce)
+       instead for protection. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X99HN84D35"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', "G-X99HN84D35");
+  </script>
+
+
+</body>
+</html>

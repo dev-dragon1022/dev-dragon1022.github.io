@@ -1,0 +1,890 @@
+<!doctype html>
+
+
+
+<html lang="zh-CN" class="h-full scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Hexo " />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    
+
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+
+<link rel="prefetch" as="script" href="https://cdn.jsdelivr.net/npm/lightgallery@2.9.0/lightgallery.min.js" />
+<link rel="prefetch" as="style" href="https://cdn.jsdelivr.net/npm/lightgallery@2.9.0/css/lightgallery.min.css" />
+<link rel="prefetch" as="script" href="/js/lightgallery.min.js?v=855d36c3" />
+
+
+<link rel="prefetch" as="style" href="/css/search.min.css?v=c845a359" />
+
+<link rel="prefetch" as="style" href="/pagefind/pagefind-component-ui.css" />
+<link rel="prefetch" as="script" href="/pagefind/pagefind-component-ui.js" />
+
+
+    
+    
+<script data-cfasync="false">
+;(() => {
+    // Progressive enhancement marker (mobile nav CSS uses html.js before paint).
+    document.documentElement.classList.add('js');
+    const shiro = (window.__shiro = window.__shiro || {});
+    const defaultTheme = "system";
+    shiro.themeDefault = defaultTheme;
+    
+    const states = defaultTheme === 'system' ? ['system', 'light', 'dark'] : ['light', 'dark'];
+    let saved;
+    try { saved = localStorage.getItem('theme'); } catch (_) {}
+    const state = saved && states.includes(saved) ? saved : defaultTheme;
+    const html = document.documentElement;
+    html.setAttribute('data-theme-state', state);
+    const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    // Pagefind dark contract only when search is enabled.
+    const syncPagefindTheme = true;
+    shiro.searchEnabled = syncPagefindTheme;
+    // Single source for theme-toggle.js and system-follow listener.
+    const applyResolvedTheme = (dark) => {
+        html.setAttribute('data-theme', dark ? 'dark' : 'light');
+        if (syncPagefindTheme) {
+            if (dark) html.setAttribute('data-pf-theme', 'dark');
+            else html.removeAttribute('data-pf-theme');
+        }
+        html.style.colorScheme = dark ? 'dark' : 'light';
+    };
+    shiro.applyResolvedTheme = applyResolvedTheme;
+    applyResolvedTheme(state === 'dark' || (state !== 'light' && darkQuery.matches));
+    if (defaultTheme === 'system') {
+        // Follow OS theme while in system mode even if the toggle script is absent.
+        const followSystem = () => {
+            if (html.getAttribute('data-theme-state') !== 'system') return;
+            applyResolvedTheme(darkQuery.matches);
+        };
+        if (darkQuery.addEventListener) darkQuery.addEventListener('change', followSystem);
+        else if (darkQuery.addListener) darkQuery.addListener(followSystem);
+    }
+    // Preloader skip: the session collection must contain this page's font-bundle URL.
+    const fontsReadyToken = "https://fonts.googleapis.com/css2?family=Cardo:wght@400;700\u0026family=Yuji+Syuku\u0026family=Zen+Old+Mincho:wght@400;600\u0026family=Cormorant+Garamond:wght@400;600\u0026family=Noto+Serif+SC:wght@400;600\u0026family=Fira+Code:wght@400;500\u0026display=swap";
+    shiro.fontsReadyToken = fontsReadyToken;
+    try {
+        const storedFontsReady = sessionStorage.getItem('shiro:fonts-ready');
+        const readyFontTokens = storedFontsReady === fontsReadyToken
+            ? [storedFontsReady]
+            : JSON.parse(storedFontsReady || '[]');
+        if (
+            fontsReadyToken
+            && Array.isArray(readyFontTokens)
+            && readyFontTokens.indexOf(fontsReadyToken) !== -1
+        ) {
+            html.classList.add('shiro-preloader-done');
+        }
+    } catch (_) {}
+})();
+</script>
+
+    
+
+    
+
+
+
+
+
+
+
+    
+
+
+<title>Axios在vue项目中的安装使用以及基本的请求方法 | 決義工記</title>
+
+
+<meta name="description" content="Axios是什么 Axios 是一个流行的 JavaScript 库，用于在 Web 浏览器和 Node.js 中发起 Http 请求和处理响应。 它提供了一种易于使用、灵活和强大的方式来与服务器进行数据通信。Axios 具有一些有用的特性，如自动转换 json 响应、请求/响应拦截、取消请求等等。 它也是 Vue.js 官方推荐的 Http 库之一。" />
+
+
+<meta name="author" content="Just. Liu" />
+
+
+<meta name="keywords" content="Axios, vue, js" />
+
+
+<meta property="og:title" content="Axios在vue项目中的安装使用以及基本的请求方法 | 決義工記" />
+
+<meta property="og:description" content="Axios是什么 Axios 是一个流行的 JavaScript 库，用于在 Web 浏览器和 Node.js 中发起 Http 请求和处理响应。 它提供了一种易于使用、灵活和强大的方式来与服务器进行数据通信。Axios 具有一些有用的特性，如自动转换 json 响应、请求/响应拦截、取消请求等等。 它也是 Vue.js 官方推荐的 Http 库之一。" />
+
+<meta property="og:url" content="https://liujueyi.cn/2023/03/16/20230316/index.html" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="決義工記" />
+
+
+<meta property="og:locale" content="zh_CN" />
+
+
+<meta property="og:image" content="https://cdnimg.liujueyi.cn/picgoimg/ewm.png" />
+
+<meta property="og:image:alt" content="扫码关注" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2023-03-16T07:29:22.000Z" />
+
+
+<meta property="article:modified_time" content="2026-11-14T07:33:50.000Z" />
+
+
+
+<meta property="article:tag" content="Axios" />
+
+<meta property="article:tag" content="vue" />
+
+<meta property="article:tag" content="js" />
+
+
+
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Axios在vue项目中的安装使用以及基本的请求方法 | 決義工記" />
+
+<meta name="twitter:description" content="Axios是什么 Axios 是一个流行的 JavaScript 库，用于在 Web 浏览器和 Node.js 中发起 Http 请求和处理响应。 它提供了一种易于使用、灵活和强大的方式来与服务器进行数据通信。Axios 具有一些有用的特性，如自动转换 json 响应、请求/响应拦截、取消请求等等。 它也是 Vue.js 官方推荐的 Http 库之一。" />
+
+
+<meta name="twitter:image" content="https://cdnimg.liujueyi.cn/picgoimg/ewm.png" />
+
+<meta name="twitter:image:alt" content="扫码关注" />
+
+
+
+<link rel="canonical" href="https://liujueyi.cn/2023/03/16/20230316/index.html" />
+
+
+
+
+
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Axios在vue项目中的安装使用以及基本的请求方法","mainEntityOfPage":{"@type":"WebPage","@id":"https://liujueyi.cn/2023/03/16/20230316/"},"description":"Axios是什么 Axios 是一个流行的 JavaScript 库，用于在 Web 浏览器和 Node.js 中发起 Http 请求和处理响应。 它提供了一种易于使用、灵活和强大的方式来与服务器进行数据通信。Axios 具有一些有用的特性，如自动转换 json 响应、请求/响应拦截、取消请求等等。 它也是 Vue.js 官方推荐的 Http 库之一。","image":["https://cdnimg.liujueyi.cn/picgoimg/ewm.png"],"datePublished":"2023-03-16T07:29:22.000Z","dateModified":"2026-11-14T07:33:50.000Z","author":{"@type":"Person","name":"Just. Liu"},"publisher":{"@type":"Organization","name":"決義工記","logo":{"@type":"ImageObject","url":"https://liujueyi.cn/favicon.svg","width":112,"height":112}},"keywords":"Axios, vue, js"}]</script>
+
+
+
+<link rel="icon" href="/favicon.svg" />
+
+
+
+<link rel="alternate" type="application/atom+xml" title="決義工記" href="/atom.xml" />
+
+
+    
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&family=Yuji+Syuku&family=Zen+Old+Mincho:wght@400;600&family=Cormorant+Garamond:wght@400;600&family=Noto+Serif+SC:wght@400;600&family=Fira+Code:wght@400;500&display=swap" />
+
+<link rel="stylesheet" href="/css/style.min.css?v=84edaf60">
+
+<link rel="stylesheet" href="/css/code.min.css?v=cb0da316">
+
+
+<link rel="stylesheet" href="/css/toc.min.css?v=d9987942">
+
+<script defer data-cfasync="false" src="/js/preloader.min.js?v=881cdc82"></script>
+
+</head>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?aed07108ff8651ce13670ba77c3c048c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<body class="h-full fog-bg text-text-body" data-shiro-lightgallery="true">
+    <!-- Preloader: font CSS load + fonts.ready, or preloader.min.js deadline. -->
+    <div id="shiroPreloader" class="shiro-preloader" aria-hidden="true">
+        <div class="shiro-preloader-ripple" aria-hidden="true">
+            <span class="shiro-preloader-ring"></span>
+            <span class="shiro-preloader-ring"></span>
+        </div>
+    </div>
+    <a href="#main-content" class="shiro-skip-link">跳到正文</a>
+    
+    
+<svg width="0" height="0" class="absolute pointer-events-none" aria-hidden="true">
+    <defs>
+        <filter id="seal-roughness" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="turbulence" baseFrequency="0.05" numOctaves="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+        </filter>
+        <filter id="text-erosion">
+            <feTurbulence type="fractalNoise" baseFrequency="0.15" numOctaves="1" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
+        </filter>
+    </defs>
+</svg>
+
+    
+
+    
+    <div id="progressBar" class="progress-bar" aria-hidden="true"></div>
+    
+    
+    <div id="backToTopSentinel" class="back-to-top-sentinel" aria-hidden="true"></div>
+    
+
+    <div class="min-h-full px-4 pt-14 pb-6 md:pb-5">
+
+        <!-- Paper Card -->
+        <div
+            class="paper mx-auto w-full max-w-4xl rounded-xl px-5 sm:px-8 md:px-12 lg:px-14 pt-10 pb-6 md:pt-12 md:pb-8">
+
+            
+
+
+<header data-pagefind-ignore>
+
+    <div class="flex items-start justify-center">
+        <div class="text-center">
+            <div class="relative inline-block">
+                
+                <p class="site-title">
+                    <a href="/">決義工記</a>
+                </p>
+                
+                <!-- Seal: Mathematically Centered -->
+                
+                <div
+                    class="absolute left-full top-1/2 -translate-y-1/2 ml-1 sm:ml-4 origin-left scale-75 sm:scale-110">
+                    
+<svg width="52" height="52" viewBox="0 0 100 100" aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg">
+    <path d="M15,12 Q50,5 85,12 Q95,50 88,88 Q50,95 12,88 Q5,50 15,12 Z"
+        fill="var(--color-seal-fill)" filter="url(#seal-roughness)" opacity="0.92" />
+    <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+        font-size="42" fill="var(--color-on-seal)" filter="url(#text-erosion)"
+        class="seal-text select-none">義</text>
+</svg>
+
+                </div>
+                
+            </div>
+            
+            <p class="site-subtitle">
+                好奇心改變世界
+            </p>
+            
+            
+            
+            <div class="mt-3 sm:mt-4 flex items-center justify-center gap-2">
+                
+                <a class="focus-elegant header-pill-btn"
+                    href="/atom.xml" target="_blank" rel="noopener noreferrer" aria-label="RSS">
+                    
+<svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M4 11a9 9 0 0 1 9 9"></path>
+    <path d="M4 4a16 16 0 0 1 16 16"></path>
+    <circle cx="5" cy="19" r="1"></circle>
+</svg>
+
+                </a>
+                
+                
+                
+                <button id="themeToggle" type="button" class="focus-elegant header-pill-btn" aria-label="跟随系统" data-label-system="跟随系统" data-label-light="浅色" data-label-dark="深色" disabled>
+                    
+<svg data-icon="system" class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="1.5"/>
+    <path d="M8 21h8M12 17v4" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+
+                    
+<svg data-icon="light" class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="4" stroke-width="1.5"/>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+
+                    
+<svg data-icon="dark" class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+                </button>
+                
+                
+                
+                <button id="searchToggle" type="button" class="focus-elegant header-pill-btn" aria-haspopup="dialog" aria-expanded="false" aria-label="搜索" disabled>
+                    
+<svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="11" cy="11" r="7"></circle>
+    <path d="M21 21l-4.35-4.35"></path>
+</svg>
+
+                </button>
+                
+            </div>
+            
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+
+<nav class="mt-8 md:mt-10" aria-label="菜单" data-pagefind-ignore>
+    <!-- Mobile Toggle -->
+    <div class="flex items-center justify-center md:hidden">
+        
+        <button id="menuBtn" type="button"
+            class="focus-elegant inline-flex cursor-pointer items-center gap-2 rounded-full border border-border-strong bg-paper/95 px-4 py-2 text-sm text-text-body shadow-xs"
+            aria-expanded="false" aria-controls="mobileMenu" disabled>
+            <span class="text-base leading-none tracking-widest">菜单</span>
+            
+<svg class="size-4 text-text-chrome transition-transform duration-200" id="menuChevron"
+    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z"
+        clip-rule="evenodd" />
+</svg>
+
+        </button>
+    </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:block">
+        <ul class="nav-desktop flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-base text-text-body px-4">
+            
+            <li>
+
+
+<a class="nav-desktop-link focus-elegant rounded-md px-2 py-1 hover:text-seal transition-colors"
+    href="/">首页</a>
+</li>
+            
+            <li class="text-text-subtle select-none" role="separator" aria-hidden="true">/</li>
+            
+            
+            <li>
+
+
+<a class="nav-desktop-link focus-elegant rounded-md px-2 py-1 hover:text-seal transition-colors"
+    href="/archives">归档</a>
+</li>
+            
+            <li class="text-text-subtle select-none" role="separator" aria-hidden="true">/</li>
+            
+            
+            <li>
+
+
+<a class="nav-desktop-link focus-elegant rounded-md px-2 py-1 hover:text-seal transition-colors"
+    href="/categories">分类</a>
+</li>
+            
+            <li class="text-text-subtle select-none" role="separator" aria-hidden="true">/</li>
+            
+            
+            <li>
+
+
+<a class="nav-desktop-link focus-elegant rounded-md px-2 py-1 hover:text-seal transition-colors"
+    href="/tags">标签</a>
+</li>
+            
+            
+        </ul>
+    </div>
+
+    <!-- Mobile Menu Panel: open without JS; html.js collapses before paint until toggled. -->
+    <div id="mobileMenu" class="menu-panel md:hidden mt-4" data-open="false">
+        <ul
+            class="mx-auto max-w-sm max-h-menu overflow-y-auto rounded-2xl border border-border-strong bg-paper/95 shadow-xs">
+            
+            <li>
+
+
+<a class="focus-elegant block px-6 py-3 text-center text-text-body hover:text-seal hover:bg-seal/5 transition-colors"
+    href="/">首页</a>
+</li>
+            
+            <li class="h-px bg-border-decorative" role="separator" aria-hidden="true"></li>
+            
+            
+            <li>
+
+
+<a class="focus-elegant block px-6 py-3 text-center text-text-body hover:text-seal hover:bg-seal/5 transition-colors"
+    href="/archives">归档</a>
+</li>
+            
+            <li class="h-px bg-border-decorative" role="separator" aria-hidden="true"></li>
+            
+            
+            <li>
+
+
+<a class="focus-elegant block px-6 py-3 text-center text-text-body hover:text-seal hover:bg-seal/5 transition-colors"
+    href="/categories">分类</a>
+</li>
+            
+            <li class="h-px bg-border-decorative" role="separator" aria-hidden="true"></li>
+            
+            
+            <li>
+
+
+<a class="focus-elegant block px-6 py-3 text-center text-text-body hover:text-seal hover:bg-seal/5 transition-colors"
+    href="/tags">标签</a>
+</li>
+            
+            
+        </ul>
+    </div>
+    
+    <script data-cfasync="false">
+    if (document.documentElement.classList.contains('js')) {
+        var menuPanel = document.getElementById('mobileMenu');
+        if (menuPanel) menuPanel.inert = true;
+    }
+    </script>
+</nav>
+
+
+
+            <!-- Main Content -->
+            <main id="main-content" class="section-divider" tabindex="-1">
+                
+
+
+
+
+
+
+
+
+<article class="py-2">
+    <header class="text-center mb-8">
+        
+        <h1 class="page-title mb-4" data-pagefind-body data-pagefind-meta="title">
+            Axios在vue项目中的安装使用以及基本的请求方法
+        </h1>
+        
+        
+
+
+
+
+
+
+
+
+<div class="mb-4 flex flex-wrap items-center justify-center gap-y-1 text-text-chrome gap-x-3 text-xs sm:gap-x-4 sm:text-sm">
+    <div class="flex items-center gap-1.5">
+        
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+</svg>
+
+        <a href="/archives/2023/" class="oldstyle-nums link-chrome"><time datetime="2023-03-16">2023/03/16</time></a>
+    </div>
+    
+        <span class="select-none text-text-faint" aria-hidden="true">•</span>
+        <div class="flex items-center gap-1.5">
+            
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+</svg>
+
+            
+                
+                
+                <span class="flex flex-wrap items-center gap-x-1.5 gap-y-0.5" role="list">
+                    
+                    <span class="inline-flex items-center gap-1.5" role="listitem">
+                        
+                        
+                        <a class="link-chrome" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" title="前端开发">前端开发</a>
+                        
+                        
+                    </span>
+                    
+                </span>
+            
+        </div>
+    
+    
+        <span class="select-none text-text-faint" aria-hidden="true">•</span>
+        
+        <div class="flex items-center gap-1.5 oldstyle-nums" title="字数 / 阅读时长">
+            
+<svg class="size-3.5 text-text-subtle shrink-0 sm:size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+</svg>
+
+            
+            <span aria-label="字数: 2.5k">2.5k</span>
+            
+            
+            <span class="select-none text-text-faint" aria-hidden="true">/</span>
+            
+            
+            <span aria-label="阅读时长: 10 分钟">10 分钟</span>
+            
+        </div>
+    
+</div>
+
+        
+    </header>
+
+    
+    
+<!-- Inline TOC (viewports below the `toc` breakpoint, where the fixed sidebar cannot fit beside the paper card).
+     html.js collapses the body before paint; toggle is disabled until toc.js binds. No-JS keeps body open. -->
+<nav id="tocInline" class="toc-inline toc:hidden mb-8" aria-label="目录" data-pagefind-ignore>
+    <button type="button" class="toc-toggle" aria-expanded="false" aria-controls="tocInlineBody" disabled>
+        <span class="toc-toggle-title">目录</span>
+        
+<svg class="toc-chevron size-4 text-text-chrome transition-transform duration-200"
+    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.06 1.06l-4.24 4.24a.75.75 0 0 1-1.06 0L5.21 8.29a.75.75 0 0 1 .02-1.08z"
+        clip-rule="evenodd" />
+</svg>
+
+    </button>
+    <div class="toc-body" id="tocInlineBody" data-open="false"><ul class="toc-list"><li class="toc-item" data-level="0"><a class="toc-link" href="#Axios%E6%98%AF%E4%BB%80%E4%B9%88" data-target="Axios是什么">Axios是什么</a><ul class="toc-list toc-list-nested"><li class="toc-item" data-level="1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85" data-target="如何安装">如何安装</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Axios" data-target="使用-Axios">使用 Axios</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#Axios-%E7%9A%84%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95" data-target="Axios-的请求方法">Axios 的请求方法</a></li></ul></li></ul></div>
+    
+    <script data-cfasync="false">
+    if (document.documentElement.classList.contains('js')) {
+        var tocBody = document.getElementById('tocInlineBody');
+        if (tocBody) tocBody.inert = true;
+    }
+    </script>
+</nav>
+
+<!-- Sidebar TOC (`toc` breakpoint and up; see --breakpoint-toc in source/css/_core/tokens.css) -->
+<nav id="tocSidebar" class="toc-sidebar hidden toc:block" aria-label="目录" data-pagefind-ignore>
+    <div class="toc-sidebar-inner">
+        <p class="toc-sidebar-title">目录</p>
+        <div class="toc-body"><ul class="toc-list"><li class="toc-item" data-level="0"><a class="toc-link" href="#Axios%E6%98%AF%E4%BB%80%E4%B9%88" data-target="Axios是什么">Axios是什么</a><ul class="toc-list toc-list-nested"><li class="toc-item" data-level="1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85" data-target="如何安装">如何安装</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Axios" data-target="使用-Axios">使用 Axios</a></li><li class="toc-item" data-level="1"><a class="toc-link" href="#Axios-%E7%9A%84%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95" data-target="Axios-的请求方法">Axios 的请求方法</a></li></ul></li></ul></div>
+    </div>
+</nav>
+
+    
+
+    <div class="prose-shiro" data-pagefind-body>
+        <h2 id="Axios是什么"><a href="#Axios是什么" class="headerlink" title="Axios是什么"></a>Axios是什么</h2><p>Axios 是一个流行的 JavaScript 库，用于在 Web 浏览器和 Node.js 中发起 Http 请求和处理响应。</p>
+<p>它提供了一种易于使用、灵活和强大的方式来与服务器进行数据通信。Axios 具有一些有用的特性，如自动转换 json 响应、请求&#x2F;响应拦截、取消请求等等。</p>
+<p>它也是 Vue.js 官方推荐的 Http 库之一。</p>
+<span id="more"></span>
+
+<h3 id="如何安装"><a href="#如何安装" class="headerlink" title="如何安装"></a>如何安装</h3><p>在 Vue 项目中使用 Axios，你需要先安装 Axios 库。</p>
+<p>主要有三种安装方式：</p>
+<h4 id="1、可以使用-npm-或者-yarn-命令行工具安装-Axios"><a href="#1、可以使用-npm-或者-yarn-命令行工具安装-Axios" class="headerlink" title="1、可以使用 npm 或者 yarn 命令行工具安装 Axios"></a>1、可以使用 npm 或者 yarn 命令行工具安装 Axios</h4><p>使用 <code>npm</code> 安装 Axios：</p>
+<figure class="not-prose highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install axios</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>yarn</code> 安装 Axios：</p>
+<figure class="not-prose highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add axios</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、直接引用-Axios"><a href="#2、直接引用-Axios" class="headerlink" title="2、直接引用 Axios"></a>2、直接引用 Axios</h4><figure class="not-prose highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3、通过-Bower-安装"><a href="#3、通过-Bower-安装" class="headerlink" title="3、通过 Bower 安装"></a>3、通过 Bower 安装</h4><p>如果想通过 <code>Bower</code> 安装 Axios ，需要先在本地安装 Bower。</p>
+<h5 id="3-1-使用-npm-全局安装-Bower："><a href="#3-1-使用-npm-全局安装-Bower：" class="headerlink" title="3.1  使用 npm 全局安装 Bower："></a>3.1  使用 npm 全局安装 Bower：</h5><figure class="not-prose highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g bower</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-在项目根目录下创建-bower-json-文件，指定依赖项："><a href="#3-2-在项目根目录下创建-bower-json-文件，指定依赖项：" class="headerlink" title="3.2  在项目根目录下创建 bower.json 文件，指定依赖项："></a>3.2  在项目根目录下创建 bower.json 文件，指定依赖项：</h5><figure class="not-prose highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;my-project&quot;</span>,</span><br><span class="line">  <span class="string">&quot;dependencies&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;axios&quot;</span>: <span class="string">&quot;^0.21.4&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中，”<code>dependencies</code>“ 属性指定项目所依赖的库及其版本号，这里使用了 <code>^0.21.4</code>，表示安装 <code>0.21.x</code> 系列的最新版本。</p>
+<h5 id="3-3-执行-bower-install-命令，安装依赖项："><a href="#3-3-执行-bower-install-命令，安装依赖项：" class="headerlink" title="3.3  执行 bower install 命令，安装依赖项："></a>3.3  执行 bower install 命令，安装依赖项：</h5><figure class="not-prose highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install</span><br></pre></td></tr></table></figure>
+
+<p>执行完成后，Axios 及其依赖项将被安装到 bower_components 目录下。</p>
+<h5 id="3-4-在-HTML-文件中引用-axios："><a href="#3-4-在-HTML-文件中引用-axios：" class="headerlink" title="3.4  在 HTML 文件中引用 axios："></a>3.4  在 HTML 文件中引用 axios：</h5><figure class="not-prose highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;bower_components/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>注意：在使用 Bower 安装 Axios 时，需要手动在 Html 文件中引用 Axios，无法通过 import 或 require 语句在 JS 文件中直接引用。</code></p>
+<h3 id="使用-Axios"><a href="#使用-Axios" class="headerlink" title="使用 Axios"></a>使用 Axios</h3><p>在组件中使用 Axios 通常有两种方式：</p>
+<h4 id="1、在组件内部直接引入-Axios-库并使用"><a href="#1、在组件内部直接引入-Axios-库并使用" class="headerlink" title="1、在组件内部直接引入 Axios 库并使用"></a>1、在组件内部直接引入 Axios 库并使用</h4><p>这种方式需要在组件内容进行安装，即在组件的 <code>&lt;script&gt;</code> 标签内部引入 axios 库并安装，如下所示：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;getData&quot;</span>&gt;</span>获取数据<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  <span class="attr">methods</span>: &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    <span class="title function_">getData</span>(<span class="params"></span>) &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">      axios.<span class="title function_">get</span>(<span class="string">&#x27;http://example.com/api/data&#x27;</span>)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">          <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        &#125;)</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">          <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        &#125;);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">  &#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">&#125;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2、在-main-js-中引入-Axios-库，并挂载到-Vue-实例上"><a href="#2、在-main-js-中引入-Axios-库，并挂载到-Vue-实例上" class="headerlink" title="2、在 main.js 中引入 Axios 库，并挂载到 Vue 实例上"></a>2、在 main.js 中引入 Axios 库，并挂载到 Vue 实例上</h4><p>这种方式需要在项目的主入口文件(main.js)中引入 Axios 并挂载到实例上，就可以在所有组件中通过 <code>this.$axios</code> 来使用，如下所示：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入并挂载</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$axios</span> = axios;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接使用this.$axios调用</span></span><br><span class="line"><span class="comment">// 如get请求</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">get</span>(<span class="string">&#x27;http://example.com/api/data&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Axios-的请求方法"><a href="#Axios-的请求方法" class="headerlink" title="Axios 的请求方法"></a>Axios 的请求方法</h3><p>Axios 支持以下 <code>http</code> 请求方法：</p>
+<h4 id="1、Get-从服务器获取资源"><a href="#1、Get-从服务器获取资源" class="headerlink" title="1、Get: 从服务器获取资源"></a>1、Get: 从服务器获取资源</h4><p>在 Axios 中，使用 <code>Get</code> 请求有以下两种类型：</p>
+<h5 id="1-1-普通-Get-请求"><a href="#1-1-普通-Get-请求" class="headerlink" title="1.1  普通 Get 请求"></a>1.1  普通 Get 请求</h5><p>直接在 <code>url</code> 后面添加参数，如：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">get</span>(<span class="string">&#x27;/user?id=123&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-带参数的-Get-请求"><a href="#1-2-带参数的-Get-请求" class="headerlink" title="1.2  带参数的 Get 请求"></a>1.2  带参数的 Get 请求</h5><p>使用 <code>params</code> 属性来传递参数，如：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">get</span>(<span class="string">&#x27;/user&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">params</span>: &#123;</span><br><span class="line">        <span class="attr">id</span>: <span class="number">123</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Axios 会自动将参数序列化成 <code>url</code> 参数格式（如 “<code>?id=123</code>“ ），并拼接在 <code>url</code> 后面。如果有多个参数，可以在 <code>params</code> 对象中添加多个属性即可，如：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">get</span>(<span class="string">&#x27;/user&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">params</span>: &#123;</span><br><span class="line">        <span class="attr">id</span>: <span class="number">123</span>,</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">        <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、POST：向服务器提交数据"><a href="#2、POST：向服务器提交数据" class="headerlink" title="2、POST：向服务器提交数据"></a>2、POST：向服务器提交数据</h4><p>在 Axios 中，使用 <code>Post</code> 请求有以下几种类型：</p>
+<h5 id="2-1-普通的-Post-请求"><a href="#2-1-普通的-Post-请求" class="headerlink" title="2.1  普通的 Post 请求"></a>2.1  普通的 Post 请求</h5><p>发送普通的 <code>post</code> 请求，请求体为 <code>json</code> 数据：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">post</span>(<span class="string">&#x27;/api/user&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-使用-FormData-对象发送-Post-请求"><a href="#2-2-使用-FormData-对象发送-Post-请求" class="headerlink" title="2.2  使用 FormData 对象发送 Post 请求"></a>2.2  使用 FormData 对象发送 Post 请求</h5><p>使用 <code>FormData</code> 对象发送表单数据：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> formData = <span class="keyword">new</span> <span class="title class_">FormData</span>()</span><br><span class="line">formData.<span class="title function_">append</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;Alice&#x27;</span>)</span><br><span class="line">formData.<span class="title function_">append</span>(<span class="string">&#x27;age&#x27;</span>, <span class="number">18</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">post</span>(<span class="string">&#x27;/api/user&#x27;</span>, formData)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-3-使用-FormData-对象上传文件"><a href="#2-3-使用-FormData-对象上传文件" class="headerlink" title="2.3. 使用 FormData 对象上传文件"></a>2.3. 使用 FormData 对象上传文件</h5><p>发送文件上传请求，需要将请求头设置为 <code>multipart/form-data</code>：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> formData = <span class="keyword">new</span> <span class="title class_">FormData</span>()</span><br><span class="line">formData.<span class="title function_">append</span>(<span class="string">&#x27;avatar&#x27;</span>, file)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">post</span>(<span class="string">&#x27;/api/upload&#x27;</span>, formData, &#123;</span><br><span class="line">  <span class="attr">headers</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;multipart/form-data&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(error)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-4-发送-URLSearchParams-数据"><a href="#2-4-发送-URLSearchParams-数据" class="headerlink" title="2.4  发送 URLSearchParams 数据"></a>2.4  发送 URLSearchParams 数据</h5><p><code>URLSearchParams</code> 是一个内置的对象，用于处理 <code>url</code> 中的查询参数。可以使用该对象来构建需要发送的数据，而不必手动构建字符串。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> params = <span class="keyword">new</span> <span class="title class_">URLSearchParams</span>();</span><br><span class="line">params.<span class="title function_">append</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;John&#x27;</span>);</span><br><span class="line">params.<span class="title function_">append</span>(<span class="string">&#x27;age&#x27;</span>, <span class="number">25</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">post</span>(<span class="string">&#x27;/api/user&#x27;</span>, params)</span><br><span class="line">.<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="3、PUT：在服务器上更新资源-客户端提供完整资源数据"><a href="#3、PUT：在服务器上更新资源-客户端提供完整资源数据" class="headerlink" title="3、PUT：在服务器上更新资源(客户端提供完整资源数据)"></a>3、PUT：在服务器上更新资源(客户端提供完整资源数据)</h4><p>使用 <code>Put</code> 请求的类型一般有两种：</p>
+<h5 id="3-1-传统方式"><a href="#3-1-传统方式" class="headerlink" title="3.1  传统方式"></a>3.1  传统方式</h5><p>传统方式下，<code>Put</code> 请求用于更新指定 <code>url</code> 中已存在的资源。在发送 Put 请求时，需要指定要更新的资源 <code>url</code> ，以及要更新的资源内容。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">put</span>(<span class="string">&#x27;/api/users/1&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;new name&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">20</span></span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码表示将 <code>ID</code> 为 <code>1</code> 的用户信息更新为 { <code>name: &#39;new name&#39;, age: 20</code> } 。需要注意的是，在传统方式下，<code>Put</code> 请求会用请求体中的数据完全替换指定 <code>url</code> 中已存在的资源。</p>
+<h5 id="3-2-RESTful方式"><a href="#3-2-RESTful方式" class="headerlink" title="3.2  RESTful方式"></a>3.2  RESTful方式</h5><p>RESTful 方式下，Put 请求用于更新指定 <code>url</code> 中已存在的资源。但是，RESTful 风格下，Put 请求只允许更新指定资源的部分属性，而不是完全替换。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">put</span>(<span class="string">&#x27;/api/users/1&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;new name&#x27;</span></span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span><br><span class="line">&#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、PATCH：在服务器上更新资源-客户端提供更改的属性"><a href="#4、PATCH：在服务器上更新资源-客户端提供更改的属性" class="headerlink" title="4、PATCH：在服务器上更新资源(客户端提供更改的属性)"></a>4、PATCH：在服务器上更新资源(客户端提供更改的属性)</h4><p>使用patch请求时，一般可以使用以下两种类型：</p>
+<h5 id="4-1-普通的-Patch-请求"><a href="#4-1-普通的-Patch-请求" class="headerlink" title="4.1  普通的 Patch 请求"></a>4.1  普通的 Patch 请求</h5><p>这种类型的请求是用来修改服务器上已存在的资源的。通常我们可以将待修改的资源数据通过请求传递给服务器。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">patch</span>(<span class="string">&#x27;/api/users/1&#x27;</span>, &#123; <span class="attr">name</span>: <span class="string">&#x27;New Name&#x27;</span> &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中，我们向服务器发送一个 <code>Patch</code> 请求，修改了 <code>ID</code> 为 <code>1</code> 的用户，名称为 “<code>New Name</code>“。</p>
+<h5 id="4-2-无-ID-的-Patch-请求"><a href="#4-2-无-ID-的-Patch-请求" class="headerlink" title="4.2  无 ID 的 Patch 请求"></a>4.2  无 ID 的 Patch 请求</h5><p>有些情况下，我们需要对资源进行某些修改，但并不知道该资源的 <code>ID</code> 是什么。在这种情况下，我们可以向服务器发送一个没有 <code>ID</code> 的 <code>Patch</code> 请求，服务器会根据请求中提供的数据来确定需要修改哪个资源。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">patch</span>(<span class="string">&#x27;/api/users&#x27;</span>, &#123; <span class="attr">oldName</span>: <span class="string">&#x27;Old Name&#x27;</span>, <span class="attr">newName</span>: <span class="string">&#x27;New Name&#x27;</span> &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中，我们向服务器发送一个没有 <code>ID</code> 的 <code>Patch</code> 请求，包含旧的名称和新的名称，服务器会根据这些数据来确定修改哪个资源。</p>
+<h4 id="5、DELETE：从服务器删除资源"><a href="#5、DELETE：从服务器删除资源" class="headerlink" title="5、DELETE：从服务器删除资源"></a>5、DELETE：从服务器删除资源</h4><p><code>Delete</code> 请求只有一种类型，用来删除资源。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">delete</span>(<span class="string">&#x27;/api/user&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">data</span>: &#123;</span><br><span class="line">    <span class="attr">userId</span>: <span class="string">&#x27;123&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">data</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中，向服务器中发送了 <code>Delete</code> 请求，请求 Url 为 “<code>/api/user</code>“，数据为 “<code> &#123; userId: &#39;123&#39; &#125;</code>“。如果请求成功，会打印出响应的数据，失败则打印错误信息。</p>
+<h4 id="6、HEAD：获取资源的元数据"><a href="#6、HEAD：获取资源的元数据" class="headerlink" title="6、HEAD：获取资源的元数据"></a>6、HEAD：获取资源的元数据</h4><p><code>Head</code> 请求方法和 <code>Get</code> 方法类似，只是服务器在响应中不返回资源的内容，而是返回资源的元数据。<br>可以用于获取服务器响应头的信息，如获取资源的更新时间、资源类型等。</p>
+<p>也可以用于获取资源的元数据，例如确认资源是否存在，或者检查资源是否已更改。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送 HEAD 请求</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">head</span>(<span class="string">&#x27;/user/12345&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">headers</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面代码通过 <code>this.$axios.head()</code> 方法向 “<code>/user/12345</code>“ 发送 <code>Head</code> 请求，并在打印出所有响应头的信息。</p>
+<p>还可以使用 <code>this.$axios.request()</code> 方法来发送 <code>Head</code> 请求：</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">request</span>(&#123;</span><br><span class="line">  <span class="attr">url</span>: <span class="string">&#x27;/user/12345&#x27;</span>,</span><br><span class="line">  <span class="attr">method</span>: <span class="string">&#x27;head&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">response</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(response.<span class="property">headers</span>);</span><br><span class="line">&#125;)</span><br><span class="line">.<span class="title function_">catch</span>(<span class="keyword">function</span> (<span class="params">error</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">error</span>(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="7、OPTIONS：获取服务器支持的请求方法和选项"><a href="#7、OPTIONS：获取服务器支持的请求方法和选项" class="headerlink" title="7、OPTIONS：获取服务器支持的请求方法和选项"></a>7、OPTIONS：获取服务器支持的请求方法和选项</h4><p>在 <code>Http</code> 协议中，<code>Options</code> 请求方法通常被用于向服务器发出一个请求，以确定客户端可以执行哪些操作。</p>
+<p>该请求方法不会真正获取资源，而是请求服务器提供关于该资源的哪些方法和选项的信息。</p>
+<p><code>Options</code> 请求方法通常用于跨域请求。</p>
+<p>在 Axios 中，使用 <code>Options</code> 请求方法有两种类型，分别是简单请求和复杂请求：</p>
+<h5 id="7-1-简单请求"><a href="#7-1-简单请求" class="headerlink" title="7.1  简单请求"></a>7.1  简单请求</h5><p>浏览器会自动发送一个 <code>Options</code> 请求，以获取服务端对 <code>Cors</code> 请求所支持的 <code>Http</code> 方法以及头信息（<code>Access-Control-Allow-Methods</code> 和 <code>Access-Control-Allow-Headers</code>）。</p>
+<p>如果服务端返回了适当的 <code>Cors</code> 头信息，则浏览器会根据请求方法和头信息来判断是否可以直接发送请求。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">options</span>(<span class="string">&#x27;/api/data&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-2-复杂请求"><a href="#7-2-复杂请求" class="headerlink" title="7.2  复杂请求"></a>7.2  复杂请求</h5><p>对于复杂请求，浏览器会先发送一个 <code>Options</code> 请求，以获取服务端对 <code>Cors</code> 请求所支持的 <code>Http</code> 方法以及头信息（<code>Access-Control-Allow-Methods</code> 和 <code>Access-Control-Allow-Headers</code>）。</p>
+<p>如果服务端返回了适当的 <code>Cors</code> 头信息，并且浏览器根据请求方法和头信息判断可以发送请求，那么浏览器就会发送实际的请求。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">options</span>(<span class="string">&#x27;/api/data&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">headers</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Access-Control-Request-Method&#x27;</span>: <span class="string">&#x27;PUT&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在上面代码中，我们通过 <code>headers</code> 选项设置了请求头信息，包括 <code>Content-Type</code> 和 <code>Access-Control-Request-Method</code>。</p>
+<p>这些信息将被发送到服务器，以便服务器能够正确处理请求。</p>
+<h4 id="8、同时进行多个请求"><a href="#8、同时进行多个请求" class="headerlink" title="8、同时进行多个请求"></a>8、同时进行多个请求</h4><p>在 Axios 中，可以使用并发请求（<code>concurrent request</code>）来同时发送多个请求。</p>
+<p>当多个请求返回后，可以使用 <code>Promise.all</code> 方法将它们的响应数据统一处理。</p>
+<figure class="not-prose highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$axios</span>.<span class="title function_">all</span>([</span><br><span class="line">  axios.<span class="title function_">get</span>(<span class="string">&#x27;/api/posts/1&#x27;</span>),</span><br><span class="line">  axios.<span class="title function_">get</span>(<span class="string">&#x27;/api/posts/2&#x27;</span>)</span><br><span class="line">]).<span class="title function_">then</span>(axios.<span class="title function_">spread</span>(<span class="function">(<span class="params">post1, post2</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Post 1:&#x27;</span>, post1.<span class="property">data</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Post 2:&#x27;</span>, post2.<span class="property">data</span>);</span><br><span class="line">&#125;)).<span class="title function_">catch</span>(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上面代码使用了 <code>this.$axios.all</code> 方法将多个请求同时发送，并使用 <code>axios.spread</code> 方法将它们的响应数据传递给一个函数进行处理。</p>
+<p>如果任何一个请求返回错误，则会触发 <code>catch</code> 方法。</p>
+<p>以上就是关于 Axios 在 Vue 项目中的一些基本安装及使用方式，希望对你有所帮助。</p>
+<hr>
+<p align="center">
+<img src="https://cdnimg.liujueyi.cn/picgoimg/ewm.png" alt="扫码关注" width="100%" decoding="async" loading="eager">
+</p>
+    </div>
+
+    <!-- Tags -->
+    
+    <div class="mt-8 flex flex-wrap gap-2">
+        
+        
+<a href="/tags/Axios/" class="tag-pill">
+    <svg class="size-3 text-text-subtle mr-2 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+        <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+    </svg>
+    Axios
+    
+</a>
+
+        
+        
+<a href="/tags/vue/" class="tag-pill">
+    <svg class="size-3 text-text-subtle mr-2 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+        <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+    </svg>
+    vue
+    
+</a>
+
+        
+        
+<a href="/tags/js/" class="tag-pill">
+    <svg class="size-3 text-text-subtle mr-2 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
+        <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" />
+    </svg>
+    js
+    
+</a>
+
+        
+    </div>
+    
+
+    
+    <!-- Post Navigation: Hexo's page.prev = newer post, page.next = older post -->
+    <nav class="section-divider flex justify-between items-center text-sm md:text-base" aria-label="文章导航">
+        
+        <a href="/2023/03/19/20230319/" class="post-nav-link group text-left" title="一般人我都不告诉他的那些css伪选择器" aria-label="下一篇（更新）: 一般人我都不告诉他的那些css伪选择器">
+             <span aria-hidden="true">&larr;</span>
+             <span class="post-nav-title">一般人我都不告诉他的那些css伪选择器</span>
+        </a>
+        
+
+        
+        <a href="/2023/03/11/20230311/" class="post-nav-link group text-right" title="js读取上传的文本文件里的内容并在浏览器中渲染显示" aria-label="上一篇（更旧）: js读取上传的文本文件里的内容并在浏览器中渲染显示">
+            <span class="post-nav-title">js读取上传的文本文件里的内容并在浏览器中渲染显示</span>
+            <span aria-hidden="true">&rarr;</span>
+        </a>
+        
+    </nav>
+
+
+    
+    
+    
+
+
+<div id="giscus-container" class="giscus" data-pagefind-ignore></div>
+
+
+    
+</article>
+
+
+            </main>
+
+            <footer class="section-divider site-footer" data-pagefind-ignore>
+    <div class="site-footer-meta text-center text-sm text-text-chrome leading-relaxed">
+        <p>&copy; <span class="oldstyle-nums">2019–2026</span> 決義工記&nbsp;&nbsp;</p>
+        <p class="font-eng text-footnote tracking-wide opacity-90">春风若有怜花意，可否许我再少年。</p>
+    </div>
+</footer>
+
+        </div>
+
+        <!-- Note Text — decorative aside, not part of main content or footer -->
+        <aside class="mt-4 text-center" aria-hidden="true" role="presentation">
+            <p class="site-note font-title text-xs sm:text-sm text-text-subtle/70 tracking-note select-none" lang="ja">
+                保持你的好奇心💖
+            </p>
+        </aside>
+    </div>
+
+    
+    <button id="backToTop" type="button" class="back-to-top" data-visible="false" aria-label="回到顶部" hidden>
+        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+    
+    
+    
+    <div class="shiro-search-components" data-pagefind-ignore>
+        <pagefind-config bundle-path="/pagefind/" base-url="/"></pagefind-config>
+        <pagefind-modal reset-on-close>
+            <pagefind-modal-header>
+                <pagefind-input placeholder="搜索文章…"></pagefind-input>
+            </pagefind-modal-header>
+            <pagefind-modal-body>
+                <pagefind-summary></pagefind-summary>
+                <pagefind-results></pagefind-results>
+            </pagefind-modal-body>
+            <pagefind-modal-footer>
+                <pagefind-keyboard-hints></pagefind-keyboard-hints>
+            </pagefind-modal-footer>
+        </pagefind-modal>
+    </div>
+    
+
+    <!-- Scripts -->
+    
+    
+    <script>
+        
+        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
+        
+        
+        (window.__shiro = window.__shiro || {})["pagefindBase"] = "/pagefind/";
+        (window.__shiro = window.__shiro || {})["searchCss"] = "/css/search.min.css?v=c845a359";
+        
+        
+        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
+window.__shiro.i18n["gallery"] = {"view_image":"查看图片","visit_source":"查看原始链接"};
+        (window.__shiro = window.__shiro || {})["lightgallery"] = {"css":"https://cdn.jsdelivr.net/npm/lightgallery@2.9.0/css/lightgallery.min.css","js":"https://cdn.jsdelivr.net/npm/lightgallery@2.9.0/lightgallery.min.js","themeCss":"/css/lightgallery.min.css?v=6d7f41e6","cssIntegrity":"","jsIntegrity":"","script":"/js/lightgallery.min.js?v=855d36c3"};
+        
+        
+        (window.__shiro = window.__shiro || {}).i18n = window.__shiro.i18n || {};
+window.__shiro.i18n["clipboard"] = {"copied":"已复制","copy":"复制代码","failed":"复制失败"};
+        (window.__shiro = window.__shiro || {})["clipboardScript"] = "/js/clipboard.min.js?v=add85817";
+        
+    </script>
+    
+    
+    <script defer src="/js/runtime.min.js?v=71138c68"></script>
+    
+    <script defer src="/js/search-bootstrap.min.js?v=e6ff1f0d"></script>
+    
+    <script defer src="/js/lightgallery-bootstrap.min.js?v=4cae0954"></script>
+    
+    <script defer src="/js/clipboard-bootstrap.min.js?v=917b808f"></script>
+    
+    <script defer src="/js/toc.min.js?v=3e0cca47"></script>
+    
+    <script defer src="/js/progress.min.js?v=d01e3a23"></script>
+    
+    <script defer src="/js/back-to-top.min.js?v=ff36a748"></script>
+    
+    <script defer src="/js/theme-toggle.min.js?v=04b6578e"></script>
+    
+    <script defer src="/js/mobile-menu.min.js?v=40df95a6"></script>
+    
+    
+    
+
+
+
+
+<script>
+    window.__shiro = window.__shiro || {};
+    window.__shiro.commentsCss = "/css/comments.min.css?v=d42495b4";
+</script>
+<script defer src="/js/comments-bootstrap.min.js?v=2ddad4c0"></script>
+
+<script>
+    (window.__shiro = window.__shiro || {})["commentsConfig"] = {"provider":"giscus","disqusReady":false,"giscusReady":true,"disqus":{"shortname":"","pageUrl":"https://liujueyi.cn/2023/03/16/20230316/","pageIdentifier":"2023/03/16/20230316/"},"giscus":{"src":"https://giscus.app/client.js","repo":"dev-dragon1022/dev-dragon1022.github.io","repo_id":"R_kgDOUQvMdA","category":"Announcements","category_id":"DIC_kwDOUQvMdM4DFCxo","mapping":"pathname","term":"","strict":"0","reactions_enabled":"1","emit_metadata":"0","input_position":"top","theme":"https://cdn.jsdelivr.net/npm/hexo-theme-shiro@1.6.1/source/css/giscus.min.css","lang":"zh-CN","lazy_loading":true}};
+</script>
+
+
+<noscript>请启用 JavaScript 以查看评论。</noscript>
+
+<script defer src="/js/comments-giscus.min.js?v=2fc8959b"></script>
+
+
+
+    
+
+    
+  <!-- Google tag (gtag.js) — SRI omitted because Google updates this script frequently,
+       which would break integrity checks. Use CSP script-src (and optional security.csp_nonce)
+       instead for protection. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-X99HN84D35"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', "G-X99HN84D35");
+  </script>
+
+
+</body>
+</html>
